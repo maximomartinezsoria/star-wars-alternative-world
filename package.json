@@ -1,0 +1,16 @@
+{
+	"name": "star-wars-alternative-world",
+	"version": "1.0.0",
+	"private": true,
+	"workspaces": [
+		"app",
+		"api"
+	],
+	"description": "",
+	"main": "index.js",
+	"scripts": {},
+	"devDependencies": {},
+	"keywords": [],
+	"author": "Maximo Martinez Soria <maximo.martinezsoria@gmail.com> (https://maximomartinezsoria.com/)",
+	"license": "ISC"
+}
