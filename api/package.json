@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "apollo-server-koa": "^3.0.2",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "koa": "^2.13.1"
   },
