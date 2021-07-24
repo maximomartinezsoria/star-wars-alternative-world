@@ -7,7 +7,9 @@
     "apollo-server-koa": "^3.0.2",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
-    "koa": "^2.13.1"
+    "knex": "^0.95.7",
+    "koa": "^2.13.1",
+    "pg": "^8.6.0"
   },
   "scripts": {
     "start": "node ./src/index.js",
