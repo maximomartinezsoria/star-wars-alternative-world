@@ -6,7 +6,7 @@ services:
         build: ./api
         command: yarn dev
         ports:
-            - $API_PORT:$API_PORT # Server will run on port 3000
+            - $API_PORT:$API_PORT
         env_file: 
             - ./.env
         environment:
