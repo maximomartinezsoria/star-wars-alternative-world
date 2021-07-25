@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 import fontRegular from '../assets/fonts/Poppins.ttf'
-import fontSemiBold from '../assets/fonts/PoppinsSemiBold.ttf'
+import fontMedium from '../assets/fonts/PoppinsMedium.ttf'
 import fontBold from '../assets/fonts/PoppinsBold.ttf'
 import fontBlack from '../assets/fonts/PoppinsBlack.ttf'
 
@@ -14,7 +14,7 @@ const Typography = createGlobalStyle`
 
   @font-face {
     font-family: Poppins;
-    src: url(${fontSemiBold});
+    src: url(${fontMedium});
     font-weight: 600;
   }
 
