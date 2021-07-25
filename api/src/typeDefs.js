@@ -39,6 +39,21 @@ const typeDefs = gql`
     nodes: [Character!]
   }
 
+  input PlanetInfo {
+    name: String!
+    description: String!
+    code: String!
+    pictureUrl: String!
+  }
+
+  input CharacterInfo {
+    name: String!
+    description: String!
+    bornAt: String!
+    pictureUrl: String!
+    planet: String!
+  }
+
   type Query {
     planets(page: Int, pageSize: Int): PlanetsResponse!
     characters(
@@ -48,6 +63,11 @@ const typeDefs = gql`
       birthDate: String
     ): CharactersResponse!
     character(id: ID!): Character
+  }
+
+  type Mutation {
+    createPlanet(planetInfo: PlanetInfo): Planet
+    createCharacter(characterInfo: CharacterInfo): Character
   }
 `
 
