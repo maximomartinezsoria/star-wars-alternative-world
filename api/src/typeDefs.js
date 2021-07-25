@@ -40,16 +40,16 @@ const typeDefs = gql`
   }
 
   input PlanetInfo {
-    name: String!
-    description: String!
-    code: String!
+    name: String! @constraint(minLength: 1, maxLength: 20)
+    description: String! @constraint(minLength: 15, maxLength: 300)
+    code: String! @constraint(pattern: "^[A-Z]{2}-[A-Z]{3}-[0-9]{2}$")
     pictureUrl: String!
   }
 
   input CharacterInfo {
-    name: String!
-    description: String!
-    bornAt: String!
+    name: String! @constraint(minLength: 1, maxLength: 20)
+    description: String! @constraint(minLength: 15, maxLength: 300)
+    bornAt: String! @constraint(format: "date")
     pictureUrl: String!
     planet: String!
   }

@@ -1,14 +1,28 @@
+import {
+  validateDate,
+  validatePagination,
+  validatePositiveInteger,
+} from './util/validation.js'
+
 const resolvers = {
   Query: {
-    planets(_, { page, pageSize }, { dataSources: { planetsService } }) {
+    planets(
+      _,
+      { page = 1, pageSize = 10 },
+      { dataSources: { planetsService } }
+    ) {
+      validatePagination(page, pageSize)
       return planetsService.getAllPlanets(page, pageSize)
     },
 
     characters(
       _,
-      { page, pageSize, planet, birthDate },
+      { page = 1, pageSize = 10, planet, birthDate },
       { dataSources: { charactersService } }
     ) {
+      validatePagination(page, pageSize)
+      validateDate(birthDate, 'birthDate')
+      validatePositiveInteger(planet, 'planet')
       return charactersService.getAllCharacters(
         page,
         pageSize,
