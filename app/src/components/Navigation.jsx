@@ -9,7 +9,7 @@ const NavigationStyles = styled.nav`
     font-weight: 600;
 
     li {
-      margin-right: 3rem;
+      margin-right: 1rem;
 
       a {
         padding: 0.8rem 2.4rem;
