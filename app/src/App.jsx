@@ -7,7 +7,7 @@ import 'normalize.css'
 
 export default function App() {
   return (
-    <main>
+    <>
       <GlobalStyles />
       <Typography />
       <Router>
@@ -16,6 +16,6 @@ export default function App() {
           <Route path="/characters" component={Characters} />
         </Switch>
       </Router>
-    </main>
+    </>
   )
 }
