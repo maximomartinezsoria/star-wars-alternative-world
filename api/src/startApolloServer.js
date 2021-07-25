@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import * as ApolloServerPkg from 'apollo-server-koa'
+import { ApolloServer } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import {
   constraintDirective,
@@ -9,8 +9,6 @@ import { knexConfig, port } from './config.js'
 import CharactersService from './services/CharactersService.js'
 import PlanetsService from './services/PlanetsService.js'
 
-const { ApolloServer } = ApolloServerPkg
-
 export default async function startApolloServer(typeDefs, resolvers) {
   const schema = makeExecutableSchema({
     typeDefs: [constraintDirectiveTypeDefs, typeDefs],
@@ -18,14 +16,11 @@ export default async function startApolloServer(typeDefs, resolvers) {
     resolvers,
   })
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
     schema,
     dataSources: () => ({
       charactersService: new CharactersService(knexConfig),
       planetsService: new PlanetsService(knexConfig),
     }),
-    introspection: true,
   })
   await server.start()
   const app = new Koa()
