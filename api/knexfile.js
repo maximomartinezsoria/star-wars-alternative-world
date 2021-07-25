@@ -1,19 +1,12 @@
 import { db as dbConfig } from './src/config.js'
 
-const { database, user, password, host, port } = dbConfig
 const client = 'pg'
 
 const knex = {
   development: {
     client,
     version: '12',
-    connection: {
-      database,
-      user,
-      password,
-      host,
-      port,
-    },
+    connection: dbConfig,
     migrations: {
       directory: './src/db/migrations',
     },
@@ -28,13 +21,7 @@ const knex = {
   production: {
     client,
     version: '12',
-    connection: {
-      database,
-      user,
-      password,
-      host,
-      port,
-    },
+    connection: dbConfig,
     pool: {
       min: 2,
       max: 10,

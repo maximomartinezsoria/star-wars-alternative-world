@@ -3,8 +3,8 @@ export function up(knex) {
     knex.schema.createTable('planets', (table) => {
       table.increments().primary()
       table.string('name').notNullable()
-      table.string('description').notNullable()
-      table.string('code', 10).notNullable()
+      table.string('description', 300).notNullable()
+      table.string('code', 9).notNullable().unique()
       table.string('picture_url').notNullable()
     }),
   ])

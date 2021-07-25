@@ -3,10 +3,10 @@ export function up(knex) {
     knex.schema.createTable('characters', (table) => {
       table.increments().primary()
       table.integer('planet_id').unsigned().notNullable()
-      table.string('name', 255).notNullable()
-      table.string('description', 255).notNullable()
+      table.string('name').notNullable()
+      table.string('description', 300).notNullable()
       table.datetime('born_at').notNullable()
-      table.string('picture_url', 255).notNullable()
+      table.string('picture_url').notNullable()
 
       table.foreign('planet_id').references('id').inTable('planets')
     }),
