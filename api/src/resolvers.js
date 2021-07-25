@@ -37,6 +37,25 @@ const resolvers = {
       return characters.nodes
     },
   },
+
+  Mutation: {
+    createCharacter(
+      _,
+      { characterInfo },
+      { dataSources: { charactersService } }
+    ) {
+      const characterData = {
+        name: characterInfo.name,
+        description: characterInfo.description,
+        picture_url: characterInfo.pictureUrl,
+        born_at: characterInfo.bornAt,
+      }
+      return charactersService.createCharacter(
+        characterData,
+        characterInfo.planet
+      )
+    },
+  },
 }
 
 export default resolvers
