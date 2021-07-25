@@ -23,8 +23,14 @@ export function createCharacterFromDbResponse({ characterData, planet }) {
 }
 
 export function createPlanetFromDbResponse(planetData) {
-  const { id, name, description, code, picture_url: pictureUrl } = planetData
-  const population = 1
+  const {
+    id,
+    name,
+    description,
+    code,
+    picture_url: pictureUrl,
+    population,
+  } = planetData
   const planet = new Planet(id, name, description, code, pictureUrl, population)
   return planet
 }

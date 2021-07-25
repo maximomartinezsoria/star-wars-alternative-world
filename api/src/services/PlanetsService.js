@@ -2,9 +2,13 @@ import { SQLDataSource } from 'datasource-sql'
 import { createPlanetFromDbResponse } from '../util/createFromDbResponse.js'
 
 class PlanetsService extends SQLDataSource {
+  static populationQuery() {
+    return '(select count(*) from characters where characters.planet_id = planets.id) as population'
+  }
+
   async getAllPlanets(page = 1, pageSize = 10) {
     const planetsData = await this.knex
-      .select('*')
+      .select('*', this.knex.raw(PlanetsService.populationQuery()))
       .from('planets')
       .limit(pageSize)
       .offset(page === 1 ? 0 : page * pageSize)
