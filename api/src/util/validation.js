@@ -1,12 +1,14 @@
+import { UserInputError } from 'apollo-server-koa'
+
 export function validatePositiveInteger(number, fieldName) {
   if (typeof number === 'number' && number > 0) return true
-  throw new Error(`${fieldName} must be a positive integer`)
+  throw new UserInputError(`${fieldName} must be a positive integer`)
 }
 
 function validatePageSize(pageSize) {
   const pageSizeValidation = pageSize > 0 && pageSize <= 100
   if (pageSizeValidation) return true
-  throw new Error(
+  throw new UserInputError(
     'PageSize must be a positive integer less than or equal to 100'
   )
 }
@@ -28,7 +30,7 @@ export function validateDate(date, fieldName) {
   )
     return true
 
-  throw new Error(
+  throw new UserInputError(
     `${fieldName} must follow this pattern: yyyy-mm-dd, and be a valid date`
   )
 }
