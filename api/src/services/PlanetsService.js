@@ -1,5 +1,5 @@
 import { SQLDataSource } from 'datasource-sql'
-import { createPlanetWithCharactersFromDbData } from '../util/createFromDbResponse.js'
+import { createPlanetFromDbResponse } from '../util/createFromDbResponse.js'
 
 class PlanetsService extends SQLDataSource {
   async getAllPlanets(page = 1, pageSize = 10) {
@@ -8,11 +8,19 @@ class PlanetsService extends SQLDataSource {
       .from('planets')
       .limit(pageSize)
       .offset(page === 1 ? 0 : page * pageSize)
-    const planets = planetsData.map(createPlanetWithCharactersFromDbData)
+    const planets = planetsData.map(createPlanetFromDbResponse)
     return {
       pagination: { total: this.getTotalRecords(), page, pageSize },
       nodes: planets,
     }
+  }
+
+  async createPlanet(planetData) {
+    const planet = await this.knex
+      .insert(planetData)
+      .into('planets')
+      .returning('*')
+    return createPlanetFromDbResponse(planet[0])
   }
 
   getTotalRecords() {
