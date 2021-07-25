@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Characters from './containers/Characters'
 import Space from './containers/Space'
+import 'normalize.css'
 
 export default function App() {
   return (
