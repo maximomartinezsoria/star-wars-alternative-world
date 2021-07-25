@@ -55,6 +55,16 @@ const resolvers = {
         characterInfo.planet
       )
     },
+
+    createPlanet(_, { planetInfo }, { dataSources: { planetsService } }) {
+      const planetData = {
+        name: planetInfo.name,
+        description: planetInfo.description,
+        code: planetInfo.code,
+        picture_url: planetInfo.pictureUrl,
+      }
+      return planetsService.createPlanet(planetData)
+    },
   },
 }
 
