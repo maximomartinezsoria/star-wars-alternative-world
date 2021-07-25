@@ -21,6 +21,22 @@ const resolvers = {
       return charactersService.getCharacterById(id)
     },
   },
+
+  Planet: {
+    async characters(
+      planet,
+      { limit },
+      { dataSources: { charactersService } }
+    ) {
+      const characters = await charactersService.getAllCharacters(
+        1,
+        limit,
+        planet.id,
+        null
+      )
+      return characters.nodes
+    },
+  },
 }
 
 export default resolvers
