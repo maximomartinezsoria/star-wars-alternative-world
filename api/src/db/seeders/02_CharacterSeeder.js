@@ -1,4 +1,4 @@
-import readSeed from '../util/readSeed.js'
+import readSeed from '../../util/readSeed.js'
 
 async function getCharacters(knex) {
   const characters = readSeed('characters')

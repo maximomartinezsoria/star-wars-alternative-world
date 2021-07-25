@@ -1,4 +1,4 @@
-import readSeed from '../util/readSeed.js'
+import readSeed from '../../util/readSeed.js'
 
 function getPlanets() {
   const planets = readSeed('planets')
