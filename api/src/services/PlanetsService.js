@@ -34,6 +34,14 @@ class PlanetsService extends SQLDataSource {
       .then((data) => data[0].count)
       .then(Number)
   }
+
+  static getPlanetByCode(knex, code) {
+    return knex
+      .select(knex.raw(PlanetsService.populationQuery()))
+      .from('planets')
+      .where({ code })
+      .first('*')
+  }
 }
 
 export default PlanetsService
