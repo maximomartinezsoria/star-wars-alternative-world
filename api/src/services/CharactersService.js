@@ -43,6 +43,23 @@ class CharactersService extends SQLDataSource {
       .then(createCharacterWithPlanetFromDbResponse)
   }
 
+  async createCharacter(characterData, planetCode) {
+    const planet = await this.knex
+      .from('planets')
+      .where({ code: planetCode })
+      .first('*')
+
+    const newCharacterData = await this.knex
+      .insert({ ...characterData, planet_id: planet.id })
+      .into('characters')
+      .returning('*')
+
+    return createCharacterWithPlanetFromDbResponse({
+      character: newCharacterData[0],
+      planet,
+    })
+  }
+
   leftJoinPlanets() {
     return this.knex
       .select(
