@@ -1,16 +1,48 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
+
+const NavigationStyles = styled.nav`
+  ul {
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    font-weight: 600;
+
+    li {
+      margin-right: 3rem;
+
+      a {
+        padding: 0.8rem 2.4rem;
+        border-radius: 8px;
+        text-transform: uppercase;
+        opacity: 0.6;
+
+        &.active {
+          background-color: var(--dark-gray);
+          opacity: 1;
+        }
+      }
+    }
+  }
+`
 
 export default function Navigation() {
+  const routes = [
+    ['/', 'Space'],
+    ['/characters', 'Characters'],
+  ]
+
   return (
-    <nav>
+    <NavigationStyles>
       <ul>
-        <li>
-          <Link to="/">Space</Link>
-        </li>
-        <li>
-          <Link to="/characters">Characters</Link>
-        </li>
+        {routes.map(([path, text], idx) => (
+          <li key={idx}>
+            <NavLink exact to={path} activeClassName="active">
+              {text}
+            </NavLink>
+          </li>
+        ))}
       </ul>
-    </nav>
+    </NavigationStyles>
   )
 }

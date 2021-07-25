@@ -33,15 +33,11 @@ const Typography = createGlobalStyle`
   html {
     font-family: Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: var(--primary);
-		font-size: 10px;
+    font-size: 10px;
   }
 
   body {
     font-size: 1.6rem;
-  }
-
-  p, li {
-    letter-spacing: 0.5px;
   }
 
   h1 {
@@ -58,8 +54,15 @@ const Typography = createGlobalStyle`
     font-weight: 600;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     margin: 0;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
   }
 `
 

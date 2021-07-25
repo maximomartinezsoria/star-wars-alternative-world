@@ -12,6 +12,10 @@ const LayoutStyles = styled.main`
     margin-left: 1.5rem;
     margin-right: 1.5rem;
   }
+
+  h1 {
+    margin-bottom: 4rem;
+  }
 `
 
 export default function Layout({ title, children }) {
