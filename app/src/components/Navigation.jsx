@@ -13,7 +13,7 @@ const NavigationStyles = styled.nav`
 
       a {
         padding: 0.8rem 2.4rem;
-        border-radius: 8px;
+        border-radius: var(--border-radius);
         text-transform: uppercase;
         opacity: 0.6;
 
