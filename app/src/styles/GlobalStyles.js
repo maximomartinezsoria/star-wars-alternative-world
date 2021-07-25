@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     text-transform: uppercase;
     border: 0;
     border-radius: var(--border-radius);
+    cursor: pointer;
 
     &.light {
       background-color: var(--dark-gray);
