@@ -1,8 +1,12 @@
 import Layout from '../components/Layout'
 import PlanetLoader from '../components/icons/PlanetLoader'
+import Card from '../components/Card'
 import styled from 'styled-components'
+import { useQuery } from '@apollo/client'
+import GET_PLANETS from '../queries/getPlanets'
+import Grid from '../styles/Grid'
 
-const SpaceEmptyStateStyles = styled.div`
+const SpaceEmptyStateStyles = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,13 +23,33 @@ const SpaceEmptyStateStyles = styled.div`
 `
 
 export default function Space() {
+  const { loading, error, data } = useQuery(GET_PLANETS, {
+    variables: { pageSize: 12 },
+  })
+
+  if (loading) return <p>Loading....</p>
+  if (error) return <p>Error!</p>
+
   return (
-    <Layout title="Space">
-      <SpaceEmptyStateStyles>
-        <PlanetLoader />
-        <h2>Space doesn't have to be so empty.</h2>
-        <button>Create Planet</button>
-      </SpaceEmptyStateStyles>
+    <Layout title="Spacious">
+      {data.planets.nodes.length > 0 ? (
+        <Grid>
+          {data.planets.nodes.map((planet) => (
+            <Card
+              key={planet.id}
+              title={`Planet ${planet.name}`}
+              image={planet.pictureUrl}
+              text={`Pop: ${planet.population}`}
+            />
+          ))}
+        </Grid>
+      ) : (
+        <SpaceEmptyStateStyles>
+          <PlanetLoader />
+          <h2>Space doesn't have to be so empty.</h2>
+          <button>Create Planet</button>
+        </SpaceEmptyStateStyles>
+      )}
     </Layout>
   )
 }
