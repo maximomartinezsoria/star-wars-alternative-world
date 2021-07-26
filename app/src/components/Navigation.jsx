@@ -30,7 +30,7 @@ const NavigationStyles = styled.nav`
 
 export default function Navigation() {
   const routes = [
-    ['/', 'Space'],
+    ['/', 'Planets'],
     ['/characters', 'Characters'],
   ]
 
