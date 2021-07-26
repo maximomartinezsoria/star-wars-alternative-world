@@ -1,26 +1,9 @@
 import Layout from '../components/Layout'
-import PlanetLoader from '../components/icons/PlanetLoader'
 import Card from '../components/Card'
-import styled from 'styled-components'
 import { useQuery } from '@apollo/client'
 import GET_PLANETS from '../queries/getPlanets'
 import Grid from '../styles/Grid'
-
-const PlanetsEmptyStateStyles = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 8rem;
-
-  svg {
-    margin-bottom: 4rem;
-  }
-
-  h2 {
-    margin-bottom: 2.4rem;
-  }
-`
+import EmptyState from '../components/EmptyState'
 
 export default function Planets() {
   const { loading, error, data } = useQuery(GET_PLANETS, {
@@ -31,7 +14,7 @@ export default function Planets() {
   if (error) return <p>Error!</p>
 
   return (
-    <Layout title="Spacious">
+    <Layout>
       {data.planets.nodes.length > 0 ? (
         <Grid>
           {data.planets.nodes.map((planet) => (
@@ -44,11 +27,7 @@ export default function Planets() {
           ))}
         </Grid>
       ) : (
-        <PlanetsEmptyStateStyles>
-          <PlanetLoader />
-          <h2>Space doesn't have to be so empty.</h2>
-          <button>Create Planet</button>
-        </PlanetsEmptyStateStyles>
+        <EmptyState entity="Planet" />
       )}
     </Layout>
   )
