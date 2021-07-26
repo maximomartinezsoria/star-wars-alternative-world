@@ -36,9 +36,12 @@ const CardStyles = styled.article`
 const TextContainerStyles = styled.div`
   padding: 0.8rem 1.6rem 1.6rem;
 
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
   p {
     font-size: 1.2rem;
-    opacity: 0.5;
   }
 `
 

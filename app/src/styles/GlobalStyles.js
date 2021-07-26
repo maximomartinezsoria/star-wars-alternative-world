@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
     --border-radius: 8px;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     background-color: var(--gray);
   }

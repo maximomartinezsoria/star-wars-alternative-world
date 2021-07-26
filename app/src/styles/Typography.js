@@ -50,19 +50,26 @@ const Typography = createGlobalStyle`
     font-size: 3.2rem;
   }
 
-  h3 {
+  h3,
+  h4 {
     font-weight: 600;
   }
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     margin: 0;
   }
 
   a {
     color: var(--primary);
     text-decoration: none;
+  }
+
+  p {
+    opacity: 0.6;
+    margin: 0;
   }
 `
 
