@@ -44,11 +44,17 @@ const iconComponents = {
   times: TimesIcon,
 }
 
-export default function IconButton({ theme, icon, shape, ...props }) {
+export default function IconButton({
+  theme,
+  icon,
+  shape,
+  className = '',
+  ...props
+}) {
   const Icon = iconComponents[icon]
 
   return (
-    <IconButtonStyles className={`${shape} ${theme}`} {...props}>
+    <IconButtonStyles className={`${shape} ${theme} ${className}`} {...props}>
       <Icon />
     </IconButtonStyles>
   )
@@ -58,4 +64,5 @@ IconButton.propTypes = {
   theme: PropTypes.oneOf(['light', 'dark']).isRequired,
   icon: PropTypes.oneOf(['add', 'times']).isRequired,
   shape: PropTypes.oneOf(['squared', 'rounded']).isRequired,
+  className: PropTypes.string,
 }
