@@ -37,7 +37,7 @@ const GlobalStyles = createGlobalStyle`
     max-width: 100%;
   }
 
-  figure.image-container {
+  .image-container {
     width: 100%;
     height: auto;
     position: relative;
