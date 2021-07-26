@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import AddIcon from './icons/AddIcon'
+import IconButton from './IconButton'
 import Navigation from './Navigation'
 
 const LayoutStyles = styled.main`
@@ -17,30 +17,16 @@ const LayoutStyles = styled.main`
   & > div {
     min-height: 100vh;
     transform: translateZ(0);
+
+    & > button {
+      position: fixed;
+      right: 0;
+      bottom: 10rem;
+    }
   }
 
   h1 {
     margin-bottom: 4rem;
-  }
-`
-
-const ButtonStyles = styled.button`
-  position: fixed;
-  right: 0;
-  bottom: 10rem;
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  text-align: center;
-
-  svg {
-    width: 3rem;
-    height: 3rem;
-    fill: var(--white);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    top: 50%;
   }
 `
 
@@ -53,9 +39,7 @@ export default function Layout({ children }) {
         </header>
         <Navigation />
         {children}
-        <ButtonStyles>
-          <AddIcon />
-        </ButtonStyles>
+        <IconButton icon="add" theme="dark" shape="rounded" />
       </div>
     </LayoutStyles>
   )

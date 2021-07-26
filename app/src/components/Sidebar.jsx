@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import CharacterCard from './CharacterCard'
-import CloseButton from './CloseButton'
+import IconButton from './IconButton'
 
 const SidebarStyles = styled.aside`
   position: fixed;
@@ -81,7 +81,12 @@ export default function Sidebar({
 }) {
   return (
     <SidebarStyles>
-      <CloseButton onClick={onClose} />
+      <IconButton
+        onClick={onClose}
+        icon="times"
+        shape="squared"
+        theme="light"
+      />
       <h2>{title}</h2>
       <p>{text}</p>
       <dl>
