@@ -6,9 +6,26 @@ const CardStyles = styled.article`
   border-radius: 16px;
   transition: background-color 0.1s ease-in;
   background-color: var(--white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
   figure {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 65%;
     margin: 0;
+
+    img {
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      height: 100%;
+      max-width: 100%;
+    }
   }
 
   &:hover {
