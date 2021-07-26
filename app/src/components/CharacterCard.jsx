@@ -21,7 +21,7 @@ const CharacterCardStyles = styled.article`
 export default function CharacterCard({ character }) {
   return (
     <CharacterCardStyles>
-      <figure class="image-container">
+      <figure className="image-container">
         <img src={character.pictureUrl} alt={character.name} />
       </figure>
       <div>
