@@ -22,7 +22,7 @@ const SidebarStyles = styled.aside`
     display: none;
   }
 
-  button {
+  .close-button {
     position: absolute;
     top: 2.5rem;
     right: 2.5rem;
@@ -56,6 +56,13 @@ const SidebarStyles = styled.aside`
 `
 
 const CardsListStyles = styled.section`
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
   h3 {
     opacity: 0.6;
     text-transform: uppercase;
@@ -78,6 +85,7 @@ export default function Sidebar({
   charactersListTitle,
   characters,
   onClose,
+  onPlusButtonClick = null,
 }) {
   return (
     <SidebarStyles>
@@ -86,6 +94,7 @@ export default function Sidebar({
         icon="times"
         shape="squared"
         theme="light"
+        className="close-button"
       />
       <h2>{title}</h2>
       <p>{text}</p>
@@ -98,7 +107,17 @@ export default function Sidebar({
         ))}
       </dl>
       <CardsListStyles>
-        <h3>{charactersListTitle}</h3>
+        <div>
+          <h3>{charactersListTitle}</h3>
+          {onPlusButtonClick && (
+            <IconButton
+              icon="add"
+              shape="squared"
+              theme="light"
+              onClick={onPlusButtonClick}
+            />
+          )}
+        </div>
         <ul>
           {characters.map((character) => (
             <li key={character.id}>
@@ -130,4 +149,5 @@ Sidebar.propTypes = {
     })
   ),
   onClose: PropTypes.func.isRequired,
+  onPlusButtonClick: PropTypes.func,
 }
