@@ -36,6 +36,25 @@ const GlobalStyles = createGlobalStyle`
   img {
     max-width: 100%;
   }
+
+  figure.image-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 65%;
+    margin: 0;
+
+    img {
+      border-radius: var(--border-radius);
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      height: 100%;
+      max-width: 100%;
+    }
+  }
 `
 
 export default GlobalStyles
