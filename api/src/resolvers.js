@@ -22,7 +22,7 @@ const resolvers = {
     ) {
       validatePagination(page, pageSize)
       validateDate(birthDate, 'birthDate')
-      validatePositiveInteger(planet, 'planet')
+      if (planet) validatePositiveInteger(planet, 'planet')
       return charactersService.getAllCharacters(
         page,
         pageSize,
