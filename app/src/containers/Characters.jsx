@@ -26,6 +26,11 @@ export default function Characters() {
               title={character.name}
               image={character.pictureUrl}
               text="10 friends"
+              className={
+                selectedCharacter && selectedCharacter.id === character.id
+                  ? 'selected'
+                  : ''
+              }
               onClick={() => {
                 setSelectedCharacter(character)
               }}
