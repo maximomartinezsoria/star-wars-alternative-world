@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client'
 import GET_PLANETS from '../queries/getPlanets'
 import Grid from '../styles/Grid'
 
-const SpaceEmptyStateStyles = styled.section`
+const PlanetsEmptyStateStyles = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +22,7 @@ const SpaceEmptyStateStyles = styled.section`
   }
 `
 
-export default function Space() {
+export default function Planets() {
   const { loading, error, data } = useQuery(GET_PLANETS, {
     variables: { pageSize: 12 },
   })
@@ -44,11 +44,11 @@ export default function Space() {
           ))}
         </Grid>
       ) : (
-        <SpaceEmptyStateStyles>
+        <PlanetsEmptyStateStyles>
           <PlanetLoader />
           <h2>Space doesn't have to be so empty.</h2>
           <button>Create Planet</button>
-        </SpaceEmptyStateStyles>
+        </PlanetsEmptyStateStyles>
       )}
     </Layout>
   )
