@@ -28,6 +28,10 @@ const GlobalStyles = createGlobalStyle`
       color: var(--primary);
     }
   }
+
+  img {
+    max-width: 100%;
+  }
 `
 
 export default GlobalStyles
