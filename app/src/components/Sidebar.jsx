@@ -6,8 +6,10 @@ import CloseButton from './CloseButton'
 const SidebarStyles = styled.aside`
   position: fixed;
   top: 3rem;
-  right: 2rem;
+  right: 0;
   width: 40rem;
+  max-width: 100%;
+  min-height: 90vh;
   max-height: 100vh;
   background-color: var(--white);
   padding: 8rem 3rem;
