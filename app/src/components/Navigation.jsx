@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 const NavigationStyles = styled.nav`
+  margin-bottom: 3rem;
+
   ul {
     display: flex;
     list-style-type: none;
