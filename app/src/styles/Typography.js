@@ -40,7 +40,8 @@ const Typography = createGlobalStyle`
     font-size: 1.6rem;
   }
 
-  h1 {
+  h1,
+  .h1 {
     font-weight: 900;
     font-size: 4.8rem;
   }
