@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import CharacterCard from './CharacterCard'
+import CloseButton from './CloseButton'
 
 const SidebarStyles = styled.aside`
   position: fixed;
@@ -17,6 +18,12 @@ const SidebarStyles = styled.aside`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  button {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
   }
 
   h2 {
@@ -68,9 +75,11 @@ export default function Sidebar({
   descriptionList,
   charactersListTitle,
   characters,
+  onClose,
 }) {
   return (
     <SidebarStyles>
+      <CloseButton onClick={onClose} />
       <h2>{title}</h2>
       <p>{text}</p>
       <dl>
@@ -113,4 +122,5 @@ Sidebar.propTypes = {
       pictureUrl: PropTypes.string.isRequired,
     })
   ),
+  onClose: PropTypes.func.isRequired,
 }

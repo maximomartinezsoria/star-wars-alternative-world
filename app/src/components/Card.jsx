@@ -30,9 +30,9 @@ const TextContainerStyles = styled.div`
   }
 `
 
-export default function Card({ title, image, text }) {
+export default function Card({ title, image, text, onClick = () => {} }) {
   return (
-    <CardStyles>
+    <CardStyles onClick={onClick}>
       <figure className="image-container">
         <img src={image} alt={title} />
       </figure>
@@ -45,7 +45,8 @@ export default function Card({ title, image, text }) {
 }
 
 Card.propTypes = {
-  title: PropTypes.string,
-  image: PropTypes.string,
-  text: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 }
