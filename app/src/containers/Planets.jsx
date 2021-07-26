@@ -26,6 +26,11 @@ export default function Planets() {
               title={`Planet ${planet.name}`}
               image={planet.pictureUrl}
               text={`Pop: ${planet.population}`}
+              className={
+                selectedPlanet && selectedPlanet.id === planet.id
+                  ? 'selected'
+                  : ''
+              }
               onClick={() => {
                 setSelectedPlanet(planet)
               }}
