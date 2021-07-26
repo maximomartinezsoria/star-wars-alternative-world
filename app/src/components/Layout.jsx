@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import AddIcon from './icons/AddIcon'
 import Navigation from './Navigation'
 
 const LayoutStyles = styled.main`
@@ -18,6 +19,26 @@ const LayoutStyles = styled.main`
   }
 `
 
+const ButtonStyles = styled.button`
+  position: sticky;
+  margin-left: calc(100% - 50px);
+  bottom: 5rem;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+
+  svg {
+    width: 3rem;
+    height: 3rem;
+    fill: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+  }
+`
+
 export default function Layout({ children }) {
   return (
     <LayoutStyles>
@@ -26,6 +47,9 @@ export default function Layout({ children }) {
       </header>
       <Navigation />
       {children}
+      <ButtonStyles>
+        <AddIcon />
+      </ButtonStyles>
     </LayoutStyles>
   )
 }
