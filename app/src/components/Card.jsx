@@ -33,7 +33,7 @@ const TextContainerStyles = styled.div`
 export default function Card({ title, image, text }) {
   return (
     <CardStyles>
-      <figure>
+      <figure class="image-container">
         <img src={image} alt={title} />
       </figure>
       <TextContainerStyles>
