@@ -18,11 +18,11 @@ const LayoutStyles = styled.main`
   }
 `
 
-export default function Layout({ title, children }) {
+export default function Layout({ children }) {
   return (
     <LayoutStyles>
       <header>
-        <h1>{title}</h1>
+        <h1>Spacious</h1>
       </header>
       <Navigation />
       {children}
@@ -31,6 +31,5 @@ export default function Layout({ title, children }) {
 }
 
 Layout.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node,
 }
