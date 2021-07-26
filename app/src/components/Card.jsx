@@ -9,12 +9,16 @@ const CardStyles = styled.article`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 
-  img {
-    border-radius: 16px 16px 0 0;
+  &.selected {
+    border: 2px solid var(--primary);
   }
 
   &:hover {
     background-color: var(--gray);
+  }
+
+  figure.image-container img {
+    border-radius: 16px 16px 0 0;
   }
 `
 
@@ -30,9 +34,15 @@ const TextContainerStyles = styled.div`
   }
 `
 
-export default function Card({ title, image, text, onClick = () => {} }) {
+export default function Card({
+  title,
+  image,
+  text,
+  onClick = () => {},
+  className = '',
+}) {
   return (
-    <CardStyles onClick={onClick}>
+    <CardStyles className={className} onClick={onClick}>
       <figure className="image-container">
         <img src={image} alt={title} />
       </figure>
@@ -49,4 +59,5 @@ Card.propTypes = {
   image: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 }
