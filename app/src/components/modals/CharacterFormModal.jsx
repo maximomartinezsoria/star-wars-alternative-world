@@ -8,6 +8,7 @@ import Form from '../forms/Form'
 import CREATE_CHARACTER from '../../mutations/createCharacter'
 import GET_CHARACTERS from '../../queries/getCharacters'
 import { useHistory } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function CharacterFormModal() {
   const history = useHistory()
@@ -22,6 +23,7 @@ export default function CharacterFormModal() {
     handleSubmit,
     reset: resetForm,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       pictureUrl: '',
@@ -46,6 +48,12 @@ export default function CharacterFormModal() {
       })
     ),
   })
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(history.location.search)
+    const planetCode = queryParams.get('planet')
+    setValue('planet', planetCode || '')
+  }, [setValue, history])
 
   const closeForm = () => {
     history.push('/characters')

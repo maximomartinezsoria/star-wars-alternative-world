@@ -18,7 +18,9 @@ export default function Planets() {
     variables: { pageSize: 12 },
   })
 
-  const openForm = () => history.push('/planets/create')
+  const openPlanetsForm = () => history.push('/planets/create')
+  const openCharactersForm = () =>
+    history.push(`/characters/create?planet=${selectedPlanet?.code}`)
 
   if (loading || error)
     return (
@@ -28,7 +30,9 @@ export default function Planets() {
     )
 
   return (
-    <Layout onPlusButtonClick={openForm}>
+    <Layout
+      onPlusButtonClick={selectedPlanet ? openCharactersForm : openPlanetsForm}
+    >
       <Route path="/planets/create" component={PlanetFormModal} />
       {data.planets.nodes.length > 0 ? (
         <Grid>
@@ -66,7 +70,7 @@ export default function Planets() {
             variables: { planet: +selectedPlanet.id },
           }}
           onClose={() => setSelectedPlanet(null)}
-          onPlusButtonClick={openForm}
+          onPlusButtonClick={openCharactersForm}
         />
       )}
     </Layout>
