@@ -19,8 +19,15 @@ export default function PlanetFormModal({ show, closeForm }) {
   const {
     register,
     handleSubmit,
+    reset: resetForm,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      pictureUrl: '',
+      name: '',
+      code: '',
+      description: '',
+    },
     resolver: yupResolver(
       yup.object().shape({
         pictureUrl: yup.string().required(),
@@ -40,6 +47,7 @@ export default function PlanetFormModal({ show, closeForm }) {
   const onSubmit = async (planetInfo) => {
     await createPlanet({ variables: { planetInfo } }).catch(console.error)
     if (mutationError) return
+    resetForm()
     closeForm()
   }
 
@@ -84,9 +92,4 @@ export default function PlanetFormModal({ show, closeForm }) {
       </Form>
     </Modal>
   )
-}
-
-PlanetFormModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  closeForm: PropTypes.func.isRequired,
 }
