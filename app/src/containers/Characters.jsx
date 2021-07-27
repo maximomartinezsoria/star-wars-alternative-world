@@ -7,6 +7,7 @@ import Card from '../components/Card'
 import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import CharacterFormModal from '../components/modals/CharacterFormModal'
+import LoadingAndErrorState from '../components/LoadingAndErrorState'
 
 export default function Characters() {
   const [selectedCharacter, setSelectedCharacter] = useState(null)
@@ -18,8 +19,12 @@ export default function Characters() {
   const closeForm = useCallback(() => setShowForm(false), [setShowForm])
   const openForm = useCallback(() => setShowForm(true), [setShowForm])
 
-  if (loading) return <p>Loading....</p>
-  if (error) return <p>Error!</p>
+  if (loading || error)
+    return (
+      <Layout>
+        <LoadingAndErrorState error={!!error} />
+      </Layout>
+    )
 
   return (
     <Layout onPlusButtonClick={openForm}>

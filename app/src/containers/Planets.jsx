@@ -7,6 +7,7 @@ import Grid from '../styles/Grid'
 import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import PlanetFormModal from '../components/modals/PlanetFormModal'
+import LoadingAndErrorState from '../components/LoadingAndErrorState'
 
 export default function Planets() {
   const [selectedPlanet, setSelectedPlanet] = useState(null)
@@ -18,8 +19,12 @@ export default function Planets() {
   const closeForm = useCallback(() => setShowForm(false), [setShowForm])
   const openForm = useCallback(() => setShowForm(true), [setShowForm])
 
-  if (loading) return <p>Loading....</p>
-  if (error) return <p>Error!</p>
+  if (loading || error)
+    return (
+      <Layout>
+        <LoadingAndErrorState error={!!error} />
+      </Layout>
+    )
 
   return (
     <Layout onPlusButtonClick={openForm}>
