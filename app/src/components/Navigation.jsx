@@ -38,7 +38,6 @@ export default function Navigation() {
             to="/"
             activeClassName="active"
             isActive={(match, location) => {
-              console.log(location)
               return (
                 location.pathname === '/' || location.pathname.match('/planets')
               )
