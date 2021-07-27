@@ -26,6 +26,7 @@ class CharactersService extends SQLDataSource {
       })
       .limit(pageSize)
       .offset(page === 1 ? 0 : page * pageSize)
+      .orderBy('characters.created_at', 'DESC')
       .options({ nestTables: true })
 
     const characters = charactersData.map(

@@ -12,6 +12,7 @@ class PlanetsService extends SQLDataSource {
       .from('planets')
       .limit(pageSize)
       .offset(page === 1 ? 0 : page * pageSize)
+      .orderBy('planets.created_at', 'DESC')
     const planets = planetsData.map(createPlanetFromDbResponse)
     return {
       pagination: { total: this.getTotalRecords(), page, pageSize },
@@ -24,7 +25,7 @@ class PlanetsService extends SQLDataSource {
       .insert(planetData)
       .into('planets')
       .returning('*')
-    return createPlanetFromDbResponse(planet[0])
+    return createPlanetFromDbResponse({ ...planet[0], population: 0 })
   }
 
   getTotalRecords() {
