@@ -5,9 +5,9 @@ import { signJwt } from '../util/jwt.js'
 
 class UsersService extends SQLDataSource {
   async loginUser(username, password) {
-    const user = await this.knex.select('*').from('users').where({ username })
+    const user = await this.knex.first('*').from('users').where({ username })
     if (!user) throw new AuthenticationError("User doesn't exist")
-    const credentialsMatch = bcrypt.compare(password, user.password)
+    const credentialsMatch = await bcrypt.compare(password, user.password)
     if (!credentialsMatch) throw new AuthenticationError('Wrong credentials')
 
     const token = signJwt({ user: { id: user.id, username } })
