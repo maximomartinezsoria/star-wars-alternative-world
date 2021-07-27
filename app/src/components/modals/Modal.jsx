@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import IconButton from './IconButton'
+import IconButton from '../IconButton'
 
 const ModalStyles = styled.div`
   position: fixed;
@@ -24,29 +24,9 @@ const ModalStyles = styled.div`
     top: 5rem;
     right: 5rem;
   }
-
-  .children {
-    margin-bottom: 4rem;
-  }
-
-  .buttons-container {
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      margin-left: 1.5rem;
-    }
-  }
 `
 
-export default function Modal({
-  show,
-  onClose,
-  title,
-  children,
-  cancelButton,
-  submitButton,
-}) {
+export default function Modal({ show, onClose, title, children }) {
   if (!show) return null
   return (
     <ModalStyles>
@@ -58,13 +38,7 @@ export default function Modal({
         className="close-button"
       />
       <h2 className="title h1">{title}</h2>
-      <div className="children">{children}</div>
-      <div className="buttons-container">
-        <button className="light" onClick={cancelButton.onClick}>
-          {cancelButton.label}
-        </button>
-        <button onClick={submitButton.onClick}>{submitButton.label}</button>
-      </div>
+      {children}
     </ModalStyles>
   )
 }
@@ -74,12 +48,4 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  cancelButton: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  }),
-  submitButton: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  }),
 }
