@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --gray: #f5f5f5;
     --dark-gray: rgba(18, 28, 51, 0.05);
     --border-radius: 8px;
+    --red: #ab192f;
   }
 
   * {
