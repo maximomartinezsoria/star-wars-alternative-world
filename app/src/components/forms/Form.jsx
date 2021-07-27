@@ -45,9 +45,11 @@ export default function Form({
         </span>
       )}
       <div className="buttons-container">
-        <button className="light" onClick={cancelButton.onClick}>
-          {cancelButton.label}
-        </button>
+        {cancelButton && (
+          <button className="light" onClick={cancelButton.onClick}>
+            {cancelButton.label}
+          </button>
+        )}
         <button type="submit" disabled={mutationLoading}>
           {submitButtonLabel}
         </button>
@@ -62,7 +64,7 @@ Form.propTypes = {
   cancelButton: PropTypes.shape({
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-  }).isRequired,
+  }),
   mutationFailed: PropTypes.bool.isRequired,
   mutationLoading: PropTypes.bool.isRequired,
 }

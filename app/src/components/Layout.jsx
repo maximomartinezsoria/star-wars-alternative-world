@@ -30,14 +30,18 @@ const LayoutStyles = styled.main`
   }
 `
 
-export default function Layout({ children, onPlusButtonClick = null }) {
+export default function Layout({
+  children,
+  onPlusButtonClick = null,
+  showNavigation = true,
+}) {
   return (
     <LayoutStyles>
       <div>
         <header>
           <h1>Spacious</h1>
         </header>
-        <Navigation />
+        {showNavigation && <Navigation />}
         {children}
         {onPlusButtonClick && (
           <IconButton
@@ -55,4 +59,5 @@ export default function Layout({ children, onPlusButtonClick = null }) {
 Layout.propTypes = {
   children: PropTypes.node,
   onPlusButtonClick: PropTypes.func,
+  showNavigation: PropTypes.bool,
 }

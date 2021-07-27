@@ -93,3 +93,8 @@ export default function PlanetFormModal({ show, closeForm }) {
     </Modal>
   )
 }
+
+PlanetFormModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  closeForm: PropTypes.func.isRequired,
+}

@@ -1,17 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
-
-const client = new ApolloClient({
-  uri: `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/graphql`,
-  cache: new InMemoryCache(),
-})
+import { StoreProvider } from './store'
+import { ApolloProvider } from '@apollo/client'
+import apolloClient from './apolloClient'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
+    <ApolloProvider client={apolloClient}>
+      <StoreProvider>
+        <App />
+      </StoreProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
