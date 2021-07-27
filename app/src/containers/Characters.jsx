@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import Layout from '../components/Layout'
 import GET_CHARACTERS from '../queries/getCharacters'
@@ -8,16 +8,16 @@ import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import CharacterFormModal from '../components/modals/CharacterFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
+import { useHistory, Route } from 'react-router-dom'
 
 export default function Characters() {
+  const history = useHistory()
   const [selectedCharacter, setSelectedCharacter] = useState(null)
-  const [showForm, setShowForm] = useState(false)
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: { pageSize: 12 },
   })
 
-  const closeForm = useCallback(() => setShowForm(false), [setShowForm])
-  const openForm = useCallback(() => setShowForm(true), [setShowForm])
+  const openForm = () => history.push('/characters/create')
 
   if (loading || error)
     return (
@@ -28,6 +28,7 @@ export default function Characters() {
 
   return (
     <Layout onPlusButtonClick={openForm}>
+      <Route path="/characters/create" component={CharacterFormModal} />
       {data.characters.nodes.length > 0 ? (
         <Grid>
           {data.characters.nodes.map((character) => (
@@ -70,8 +71,6 @@ export default function Characters() {
           onPlusButtonClick={openForm}
         />
       )}
-
-      <CharacterFormModal show={showForm} closeForm={closeForm} />
     </Layout>
   )
 }

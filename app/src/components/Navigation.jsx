@@ -29,21 +29,29 @@ const NavigationStyles = styled.nav`
 `
 
 export default function Navigation() {
-  const routes = [
-    ['/', 'Planets'],
-    ['/characters', 'Characters'],
-  ]
-
   return (
     <NavigationStyles>
       <ul>
-        {routes.map(([path, text], idx) => (
-          <li key={idx}>
-            <NavLink exact to={path} activeClassName="active">
-              {text}
-            </NavLink>
-          </li>
-        ))}
+        <li>
+          <NavLink
+            exact
+            to="/"
+            activeClassName="active"
+            isActive={(match, location) => {
+              console.log(location)
+              return (
+                location.pathname === '/' || location.pathname.match('/planets')
+              )
+            }}
+          >
+            Planets
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/characters" activeClassName="active">
+            Characters
+          </NavLink>
+        </li>
       </ul>
     </NavigationStyles>
   )

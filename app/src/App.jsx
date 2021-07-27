@@ -24,7 +24,7 @@ export default function App() {
         <Switch>
           {!isAuth && <Route path="/login" component={Login} />}
           {!isAuth && <Redirect to="/login" />}
-          <Route exact path="/" component={Planets} />
+          <Route exact path={['/', '/planets/*']} component={Planets} />
           <Route path="/characters" component={Characters} />
         </Switch>
       </Router>

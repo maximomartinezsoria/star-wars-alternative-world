@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@apollo/client'
@@ -8,8 +7,10 @@ import Input from '../forms/Input'
 import Form from '../forms/Form'
 import CREATE_PLANET from '../../mutations/createPlanet'
 import GET_PLANETS from '../../queries/getPlanets'
+import { useHistory } from 'react-router-dom'
 
-export default function PlanetFormModal({ show, closeForm }) {
+export default function PlanetFormModal() {
+  const history = useHistory()
   const [createPlanet, { loading, error: mutationError }] = useMutation(
     CREATE_PLANET,
     {
@@ -44,6 +45,10 @@ export default function PlanetFormModal({ show, closeForm }) {
     ),
   })
 
+  const closeForm = () => {
+    history.push('/')
+  }
+
   const onSubmit = async (planetInfo) => {
     await createPlanet({ variables: { planetInfo } }).catch(console.error)
     if (mutationError) return
@@ -52,7 +57,7 @@ export default function PlanetFormModal({ show, closeForm }) {
   }
 
   return (
-    <Modal show={show} onClose={closeForm} title="Planet">
+    <Modal onClose={closeForm} title="Planet">
       <Form
         onSubmit={handleSubmit(onSubmit)}
         cancelButton={{ label: 'Cancel', onClick: closeForm }}
@@ -92,9 +97,4 @@ export default function PlanetFormModal({ show, closeForm }) {
       </Form>
     </Modal>
   )
-}
-
-PlanetFormModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  closeForm: PropTypes.func.isRequired,
 }

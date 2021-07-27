@@ -1,4 +1,4 @@
-import React from 'react'
+import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import IconButton from '../IconButton'
@@ -26,9 +26,8 @@ const ModalStyles = styled.div`
   }
 `
 
-export default function Modal({ show, onClose, title, children }) {
-  if (!show) return null
-  return (
+export default function Modal({ onClose, title, children }) {
+  return createPortal(
     <ModalStyles>
       <IconButton
         icon="times"
@@ -39,12 +38,12 @@ export default function Modal({ show, onClose, title, children }) {
       />
       <h2 className="title h1">{title}</h2>
       {children}
-    </ModalStyles>
+    </ModalStyles>,
+    document.querySelector('#modal')
   )
 }
 
 Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,

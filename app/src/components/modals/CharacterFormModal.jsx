@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@apollo/client'
@@ -8,8 +7,10 @@ import Input from '../forms/Input'
 import Form from '../forms/Form'
 import CREATE_CHARACTER from '../../mutations/createCharacter'
 import GET_CHARACTERS from '../../queries/getCharacters'
+import { useHistory } from 'react-router-dom'
 
-export default function CharacterFormModal({ show, closeForm }) {
+export default function CharacterFormModal() {
+  const history = useHistory()
   const [createCharacter, { loading, error: mutationError }] = useMutation(
     CREATE_CHARACTER,
     {
@@ -46,6 +47,10 @@ export default function CharacterFormModal({ show, closeForm }) {
     ),
   })
 
+  const closeForm = () => {
+    history.push('/characters')
+  }
+
   const onSubmit = async (characterInfo) => {
     await createCharacter({
       variables: {
@@ -61,7 +66,7 @@ export default function CharacterFormModal({ show, closeForm }) {
   }
 
   return (
-    <Modal show={show} onClose={closeForm} title="Character">
+    <Modal onClose={closeForm} title="Character">
       <Form
         onSubmit={handleSubmit(onSubmit)}
         cancelButton={{ label: 'Cancel', onClick: closeForm }}
@@ -109,9 +114,4 @@ export default function CharacterFormModal({ show, closeForm }) {
       </Form>
     </Modal>
   )
-}
-
-CharacterFormModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  closeForm: PropTypes.func.isRequired,
 }

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import Layout from '../components/Layout'
 import Card from '../components/Card'
 import { useQuery } from '@apollo/client'
@@ -8,16 +8,16 @@ import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import PlanetFormModal from '../components/modals/PlanetFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
+import { useHistory, Route } from 'react-router-dom'
 
 export default function Planets() {
+  const history = useHistory()
   const [selectedPlanet, setSelectedPlanet] = useState(null)
-  const [showForm, setShowForm] = useState(false)
   const { loading, error, data } = useQuery(GET_PLANETS, {
     variables: { pageSize: 12 },
   })
 
-  const closeForm = useCallback(() => setShowForm(false), [setShowForm])
-  const openForm = useCallback(() => setShowForm(true), [setShowForm])
+  const openForm = () => history.push('/planets/create')
 
   if (loading || error)
     return (
@@ -28,6 +28,7 @@ export default function Planets() {
 
   return (
     <Layout onPlusButtonClick={openForm}>
+      <Route path="/planets/create" component={PlanetFormModal} />
       {data.planets.nodes.length > 0 ? (
         <Grid>
           {data.planets.nodes.map((planet) => (
@@ -69,8 +70,6 @@ export default function Planets() {
           onPlusButtonClick={openForm}
         />
       )}
-
-      <PlanetFormModal show={showForm} closeForm={closeForm} />
     </Layout>
   )
 }
