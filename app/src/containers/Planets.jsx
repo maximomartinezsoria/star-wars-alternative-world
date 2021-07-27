@@ -9,6 +9,7 @@ import EmptyState from '../components/EmptyState'
 import PlanetFormModal from '../components/modals/PlanetFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
 import { useHistory, Route } from 'react-router-dom'
+import GET_CHARACTERS from '../queries/getCharacters'
 
 export default function Planets() {
   const history = useHistory()
@@ -60,12 +61,10 @@ export default function Planets() {
             { title: 'Population', text: `${selectedPlanet.population}` },
           ]}
           charactersListTitle="Characters"
-          characters={selectedPlanet.characters.map((character) => ({
-            id: character.id,
-            name: character.name,
-            text: `${selectedPlanet.characters.length}`,
-            pictureUrl: character.pictureUrl,
-          }))}
+          charactersQuery={{
+            query: GET_CHARACTERS,
+            variables: { planet: +selectedPlanet.id },
+          }}
           onClose={() => setSelectedPlanet(null)}
           onPlusButtonClick={openForm}
         />

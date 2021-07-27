@@ -26,7 +26,7 @@ export default function CharacterCard({ character }) {
       </figure>
       <div>
         <h4>{character.name}</h4>
-        <p>{character.text}</p>
+        <p>{character.description}</p>
       </div>
     </CharacterCardStyles>
   )
@@ -36,7 +36,7 @@ CharacterCard.propTypes = {
   character: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    description: PropTypes.string,
     pictureUrl: PropTypes.string.isRequired,
   }),
 }

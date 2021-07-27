@@ -1,7 +1,9 @@
+import { useQuery } from '@apollo/client'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import CharacterCard from './CharacterCard'
 import IconButton from './IconButton'
+import LoadingAndErrorState from './LoadingAndErrorState'
 
 const SidebarStyles = styled.aside`
   position: fixed;
@@ -83,10 +85,14 @@ export default function Sidebar({
   text,
   descriptionList,
   charactersListTitle,
-  characters,
+  charactersQuery,
   onClose,
   onPlusButtonClick = null,
 }) {
+  const { data, loading, error } = useQuery(charactersQuery.query, {
+    variables: charactersQuery.variables,
+  })
+
   return (
     <SidebarStyles>
       <IconButton
@@ -118,13 +124,20 @@ export default function Sidebar({
             />
           )}
         </div>
-        <ul>
-          {characters.map((character) => (
-            <li key={character.id}>
-              <CharacterCard character={character} />
-            </li>
-          ))}
-        </ul>
+
+        {loading || error ? (
+          <LoadingAndErrorState error={!!error} />
+        ) : data.characters.nodes.length === 0 ? (
+          <p>Looks like this planet is empty...</p>
+        ) : (
+          <ul>
+            {data.characters.nodes.map((character) => (
+              <li key={character.id}>
+                <CharacterCard character={character} />
+              </li>
+            ))}
+          </ul>
+        )}
       </CardsListStyles>
     </SidebarStyles>
   )
@@ -140,14 +153,10 @@ Sidebar.propTypes = {
     })
   ),
   charactersListTitle: PropTypes.string.isRequired,
-  characters: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      pictureUrl: PropTypes.string.isRequired,
-    })
-  ),
+  charactersQuery: PropTypes.shape({
+    query: PropTypes.isRequired,
+    variables: PropTypes.isRequired,
+  }),
   onClose: PropTypes.func.isRequired,
   onPlusButtonClick: PropTypes.func,
 }

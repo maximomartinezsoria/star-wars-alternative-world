@@ -61,12 +61,10 @@ export default function Characters() {
             { title: 'Friends', text: `${data.characters.nodes.length}` },
           ]}
           charactersListTitle="Friends"
-          characters={data.characters.nodes.map((character) => ({
-            id: character.id,
-            name: character.name,
-            text: character.description,
-            pictureUrl: character.pictureUrl,
-          }))}
+          charactersQuery={{
+            query: GET_CHARACTERS,
+            variables: { pageSize: 3 },
+          }}
           onClose={() => setSelectedCharacter(null)}
           onPlusButtonClick={openForm}
         />

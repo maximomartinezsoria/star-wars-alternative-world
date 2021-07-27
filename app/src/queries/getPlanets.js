@@ -15,11 +15,6 @@ const GET_PLANETS = gql`
         code
         pictureUrl
         population
-        characters {
-          id
-          name
-          pictureUrl
-        }
       }
     }
   }
