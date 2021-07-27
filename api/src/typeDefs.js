@@ -64,7 +64,7 @@ const typeDefs = gql`
     characters(
       page: Int
       pageSize: Int
-      planet: Int
+      planet: ID
       birthDate: String
     ): CharactersResponse!
     character(id: ID!): Character

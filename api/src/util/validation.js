@@ -17,7 +17,7 @@ export function validateUserInfo(userInfo) {
 }
 
 export function validatePositiveInteger(number, fieldName) {
-  if (typeof number === 'number' && number > 0) return true
+  if (number > 0) return true
   throw new UserInputError(`${fieldName} must be a positive integer`)
 }
 
