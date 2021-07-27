@@ -5,11 +5,13 @@
   "type": "module",
   "dependencies": {
     "apollo-server-koa": "^3.0.2",
+    "bcrypt": "^5.0.1",
     "datasource-sql": "^1.4.1",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "graphql-constraint-directive": "^2.1.1",
     "graphql-tools": "^7.0.5",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.7",
     "koa": "^2.13.1",
     "pg": "^8.6.0"
