@@ -6,6 +6,7 @@ export function up(knex) {
       table.string('description', 300).notNullable()
       table.string('code', 9).notNullable().unique()
       table.string('picture_url').notNullable()
+      table.timestamp('created_at').defaultTo(knex.fn.now())
     }),
   ])
 }
