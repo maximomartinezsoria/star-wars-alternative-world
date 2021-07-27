@@ -30,7 +30,7 @@ const LayoutStyles = styled.main`
   }
 `
 
-export default function Layout({ children }) {
+export default function Layout({ children, onPlusButtonClick = null }) {
   return (
     <LayoutStyles>
       <div>
@@ -39,7 +39,14 @@ export default function Layout({ children }) {
         </header>
         <Navigation />
         {children}
-        <IconButton icon="add" theme="dark" shape="rounded" />
+        {onPlusButtonClick && (
+          <IconButton
+            icon="add"
+            theme="dark"
+            shape="rounded"
+            onClick={onPlusButtonClick}
+          />
+        )}
       </div>
     </LayoutStyles>
   )
@@ -47,4 +54,5 @@ export default function Layout({ children }) {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  onPlusButtonClick: PropTypes.func,
 }
