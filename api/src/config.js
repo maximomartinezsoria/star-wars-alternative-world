@@ -18,3 +18,5 @@ export const knexConfig = {
 }
 
 export const port = process.env.API_PORT
+
+export const jwtSecret = process.env.JWT_SECRET

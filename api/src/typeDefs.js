@@ -54,6 +54,11 @@ const typeDefs = gql`
     planet: String!
   }
 
+  input UserCredentials {
+    username: String!
+    password: String!
+  }
+
   type Query {
     planets(page: Int, pageSize: Int): PlanetsResponse!
     characters(
@@ -66,8 +71,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createPlanet(planetInfo: PlanetInfo): Planet
-    createCharacter(characterInfo: CharacterInfo): Character
+    createPlanet(planetInfo: PlanetInfo!): Planet
+    createCharacter(characterInfo: CharacterInfo!): Character
+    register(userInfo: UserCredentials!): String
+    login(userInfo: UserCredentials!): String
   }
 `
 

@@ -2,6 +2,8 @@ import {
   validateDate,
   validatePagination,
   validatePositiveInteger,
+  validateUserIsLoggedIn,
+  validateUserInfo,
 } from './util/validation.js'
 
 const resolvers = {
@@ -9,8 +11,9 @@ const resolvers = {
     planets(
       _,
       { page = 1, pageSize = 10 },
-      { dataSources: { planetsService } }
+      { dataSources: { planetsService }, user }
     ) {
+      validateUserIsLoggedIn(user)
       validatePagination(page, pageSize)
       return planetsService.getAllPlanets(page, pageSize)
     },
@@ -18,8 +21,9 @@ const resolvers = {
     characters(
       _,
       { page = 1, pageSize = 10, planet, birthDate },
-      { dataSources: { charactersService } }
+      { dataSources: { charactersService }, user }
     ) {
+      validateUserIsLoggedIn(user)
       validatePagination(page, pageSize)
       validateDate(birthDate, 'birthDate')
       if (planet) validatePositiveInteger(planet, 'planet')
@@ -31,7 +35,8 @@ const resolvers = {
       )
     },
 
-    character(_, { id }, { dataSources: { charactersService } }) {
+    character(_, { id }, { dataSources: { charactersService }, user }) {
+      validateUserIsLoggedIn(user)
       return charactersService.getCharacterById(id)
     },
   },
@@ -40,8 +45,9 @@ const resolvers = {
     async characters(
       planet,
       { limit },
-      { dataSources: { charactersService } }
+      { dataSources: { charactersService }, user }
     ) {
+      validateUserIsLoggedIn(user)
       const characters = await charactersService.getAllCharacters(
         1,
         limit,
@@ -56,8 +62,9 @@ const resolvers = {
     createCharacter(
       _,
       { characterInfo },
-      { dataSources: { charactersService } }
+      { dataSources: { charactersService }, user }
     ) {
+      validateUserIsLoggedIn(user)
       const characterData = {
         name: characterInfo.name,
         description: characterInfo.description,
@@ -70,7 +77,8 @@ const resolvers = {
       )
     },
 
-    createPlanet(_, { planetInfo }, { dataSources: { planetsService } }) {
+    createPlanet(_, { planetInfo }, { dataSources: { planetsService }, user }) {
+      validateUserIsLoggedIn(user)
       const planetData = {
         name: planetInfo.name,
         description: planetInfo.description,
@@ -78,6 +86,16 @@ const resolvers = {
         picture_url: planetInfo.pictureUrl,
       }
       return planetsService.createPlanet(planetData)
+    },
+
+    login(_, { userInfo }, { dataSources: { usersService } }) {
+      validateUserInfo(userInfo)
+      return usersService.loginUser(userInfo.username, userInfo.password)
+    },
+
+    register(_, { userInfo }, { dataSources: { usersService } }) {
+      validateUserInfo(userInfo)
+      return usersService.registerUser(userInfo.username, userInfo.password)
     },
   },
 }

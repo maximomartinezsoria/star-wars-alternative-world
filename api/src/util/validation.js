@@ -1,4 +1,20 @@
-import { UserInputError } from 'apollo-server-koa'
+import { UserInputError, AuthenticationError } from 'apollo-server-koa'
+
+export function validateUserIsLoggedIn(user) {
+  if (user) return true
+  throw new AuthenticationError('You must provide a valid token')
+}
+
+export function validateUserInfo(userInfo) {
+  if (
+    String(userInfo.username) &&
+    userInfo.username.length > 0 &&
+    String(userInfo.password) &&
+    userInfo.password.length > 0
+  )
+    return true
+  throw new UserInputError('You must provide an username and a password')
+}
 
 export function validatePositiveInteger(number, fieldName) {
   if (typeof number === 'number' && number > 0) return true
