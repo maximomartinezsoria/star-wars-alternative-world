@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { ApolloServer } from 'apollo-server-koa'
+import { ApolloServer, AuthenticationError } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import {
   constraintDirective,
@@ -25,13 +25,16 @@ export default async function startApolloServer(typeDefs, resolvers) {
       usersService: new UsersService(knexConfig),
     }),
     context: ({ ctx }) => {
-      const token = ctx.request.headers.authorization
+      const header = ctx.request.headers.authorization
+      const token = header && header.split(' ')[1]
       if (!token) return { user: null }
-
-      const user = verifyJwt(token)
-      console.log({ user })
-
-      return { user }
+      try {
+        const user = verifyJwt(token)
+        return { user }
+      } catch (err) {
+        console.log(err)
+        throw new AuthenticationError('Invalid token')
+      }
     },
   })
   await server.start()

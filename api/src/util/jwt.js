@@ -5,6 +5,6 @@ export function signJwt(payload) {
   return jwt.sign(payload, jwtSecret)
 }
 
-export function verifyJwt(payload) {
-  return jwt.verify(payload, jwtSecret)
+export function verifyJwt(token) {
+  return jwt.verify(token, jwtSecret)
 }
