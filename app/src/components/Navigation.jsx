@@ -1,5 +1,8 @@
+import { useApolloClient } from '@apollo/client'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import GET_ALL_CHARACTERS from '../queries/getAllCharacters'
+import GET_ALL_PLANETS from '../queries/getAllPlanets'
 
 const NavigationStyles = styled.nav`
   margin-bottom: 3rem;
@@ -29,6 +32,8 @@ const NavigationStyles = styled.nav`
 `
 
 export default function Navigation() {
+  const client = useApolloClient()
+
   return (
     <NavigationStyles>
       <ul>
@@ -42,12 +47,28 @@ export default function Navigation() {
                 location.pathname === '/' || location.pathname.match('/planets')
               )
             }}
+            onMouseOver={() =>
+              client.query({
+                query: GET_ALL_PLANETS,
+                variables: { pageSize: 12 },
+              })
+            }
           >
             Planets
           </NavLink>
         </li>
         <li>
-          <NavLink exact to="/characters" activeClassName="active">
+          <NavLink
+            exact
+            to="/characters"
+            activeClassName="active"
+            onMouseOver={() =>
+              client.query({
+                query: GET_ALL_CHARACTERS,
+                variables: { pageSize: 12, planet: null },
+              })
+            }
+          >
             Characters
           </NavLink>
         </li>
