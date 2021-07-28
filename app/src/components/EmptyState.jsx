@@ -19,16 +19,17 @@ const EmptyStateStyles = styled.section`
   }
 `
 
-export default function EmptyState({ entity }) {
+export default function EmptyState({ entity, onClick }) {
   return (
     <EmptyStateStyles>
       <PlanetLoader />
       <h2>Space doesn't have to be so empty.</h2>
-      <button>Create {entity}</button>
+      <button onClick={onClick}>Create {entity}</button>
     </EmptyStateStyles>
   )
 }
 
 EmptyState.propTypes = {
   entity: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 }

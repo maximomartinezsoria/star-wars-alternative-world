@@ -56,7 +56,7 @@ export default function Characters() {
           ))}
         </Grid>
       ) : (
-        <EmptyState entity="Character" />
+        <EmptyState entity="Character" onClick={openForm} />
       )}
 
       {selectedCharacter && (

@@ -54,7 +54,7 @@ export default function Planets() {
           ))}
         </Grid>
       ) : (
-        <EmptyState entity="Planet" />
+        <EmptyState entity="Planet" onClick={openPlanetsForm} />
       )}
 
       {selectedPlanet && (
