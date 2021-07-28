@@ -16,8 +16,9 @@ const errorLink = onError(({ graphQLErrors }) => {
     })
 })
 
+console.log(`${process.env.REACT_APP_API_URL}/graphql`)
 const httpLink = createHttpLink({
-  uri: `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/graphql`,
+  uri: `${process.env.REACT_APP_API_URL}/graphql`,
 })
 
 const authLink = setContext((_, { headers }) => {
