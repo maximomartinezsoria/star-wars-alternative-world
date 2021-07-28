@@ -26,8 +26,9 @@ services:
         build: ./app
         ports:
             - $APP_PORT:3000 # Create React App will use port 3000
+        env_file:
+            - ./.env
         environment:
-            - REACT_APP_API_HOST=api
             - REACT_APP_API_PORT=$API_PORT
         networks:
             - app-network
