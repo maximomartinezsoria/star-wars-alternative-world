@@ -1,4 +1,5 @@
 import Koa from 'koa'
+import cors from '@koa/cors'
 import { ApolloServer, AuthenticationError } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import {
@@ -17,6 +18,10 @@ export default async function startApolloServer(typeDefs, resolvers) {
     schemaTransforms: [constraintDirective()],
     resolvers,
   })
+
+  const app = new Koa()
+  app.use(cors())
+
   const server = new ApolloServer({
     schema,
     dataSources: () => ({
@@ -38,8 +43,7 @@ export default async function startApolloServer(typeDefs, resolvers) {
     },
   })
   await server.start()
-  const app = new Koa()
-  server.applyMiddleware({ app })
+  server.applyMiddleware({ app, cors: false })
   await new Promise((resolve) => app.listen(port, resolve))
   console.log(`Server listening on port ${port}`)
   return { server, app }
