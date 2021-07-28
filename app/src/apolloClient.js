@@ -11,8 +11,10 @@ import { getCookie, removeCookie } from './helpers'
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message }) => {
-      if (message.match(/Invalid token/)) removeCookie('token')
-      window.href = '/'
+      if (message.match(/Invalid token/)) {
+        removeCookie('token')
+        window.href = '/'
+      }
     })
 })
 

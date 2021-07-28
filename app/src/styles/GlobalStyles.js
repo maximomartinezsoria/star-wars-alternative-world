@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     --dark-gray: rgba(18, 28, 51, 0.05);
     --border-radius: 8px;
     --red: #ab192f;
+    --purple: #debbff;
   }
 
   * {

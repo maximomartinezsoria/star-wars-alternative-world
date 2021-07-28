@@ -10,6 +10,7 @@ import PlanetFormModal from '../components/modals/PlanetFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
 import { useHistory, Route } from 'react-router-dom'
 import GET_CHARACTERS from '../queries/getCharacters'
+import useNewId from '../hooks/useNewId'
 
 export default function Planets() {
   const history = useHistory()
@@ -17,6 +18,7 @@ export default function Planets() {
   const { loading, error, data } = useQuery(GET_PLANETS, {
     variables: { pageSize: 12 },
   })
+  const newPlanetId = useNewId('NEW_PLANET')
 
   const openPlanetsForm = () => history.push('/planets/create')
   const openCharactersForm = () =>
@@ -45,6 +47,8 @@ export default function Planets() {
               className={
                 selectedPlanet && selectedPlanet.id === planet.id
                   ? 'selected'
+                  : '' + newPlanetId === planet.id
+                  ? 'highlight'
                   : ''
               }
               onClick={() => {

@@ -13,6 +13,10 @@ const CardStyles = styled.article`
     border: 2px solid var(--primary);
   }
 
+  &.highlight {
+    border: 4px solid var(--purple);
+  }
+
   &:hover {
     background-color: var(--gray);
   }

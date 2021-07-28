@@ -68,7 +68,7 @@ export default function FilterByPlanet({ setPlanet }) {
         ]}
         defaultValue={defaultValue}
         onChange={(e) => {
-          setPlanet(e.value)
+          setPlanet(data?.planets.nodes.find(({ id }) => id === e.value))
         }}
       />
     </SelectContainerStyles>

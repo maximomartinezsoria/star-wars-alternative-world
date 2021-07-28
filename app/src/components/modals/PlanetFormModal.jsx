@@ -8,6 +8,7 @@ import Form from '../forms/Form'
 import CREATE_PLANET from '../../mutations/createPlanet'
 import GET_PLANETS from '../../queries/getPlanets'
 import { useHistory } from 'react-router-dom'
+import Emitter from '../../lib/eventEmitter'
 
 export default function PlanetFormModal() {
   const history = useHistory()
@@ -15,6 +16,7 @@ export default function PlanetFormModal() {
     CREATE_PLANET,
     {
       refetchQueries: [{ query: GET_PLANETS, variables: { pageSize: 12 } }],
+      awaitRefetchQueries: true,
     }
   )
   const {
@@ -50,9 +52,12 @@ export default function PlanetFormModal() {
   }
 
   const onSubmit = async (planetInfo) => {
-    await createPlanet({ variables: { planetInfo } }).catch(console.error)
+    const newPlanet = await createPlanet({ variables: { planetInfo } }).catch(
+      console.error
+    )
     if (mutationError) return
     resetForm()
+    Emitter.emit('NEW_PLANET', newPlanet?.data?.createPlanet.id)
     closeForm()
   }
 

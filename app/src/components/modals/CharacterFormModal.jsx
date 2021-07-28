@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@apollo/client'
@@ -9,13 +10,19 @@ import CREATE_CHARACTER from '../../mutations/createCharacter'
 import GET_CHARACTERS from '../../queries/getCharacters'
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
+import Emitter from '../../lib/eventEmitter'
 
-export default function CharacterFormModal() {
+export default function CharacterFormModal(selectedPlanet) {
   const history = useHistory()
   const [createCharacter, { loading, error: mutationError }] = useMutation(
     CREATE_CHARACTER,
     {
-      refetchQueries: [{ query: GET_CHARACTERS, variables: { pageSize: 12 } }],
+      refetchQueries: [
+        {
+          query: GET_CHARACTERS,
+          variables: { pageSize: 12, planet: selectedPlanet?.id },
+        },
+      ],
     }
   )
   const {
@@ -60,7 +67,7 @@ export default function CharacterFormModal() {
   }
 
   const onSubmit = async (characterInfo) => {
-    await createCharacter({
+    const newCharacter = await createCharacter({
       variables: {
         characterInfo: {
           ...characterInfo,
@@ -70,6 +77,7 @@ export default function CharacterFormModal() {
     }).catch(console.error)
     if (mutationError) return
     resetForm()
+    Emitter.emit('NEW_CHARACTER', newCharacter?.data?.createCharacter.id)
     closeForm()
   }
 
@@ -122,4 +130,11 @@ export default function CharacterFormModal() {
       </Form>
     </Modal>
   )
+}
+
+CharacterFormModal.propTypes = {
+  selectedPlanet: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired,
+  }),
 }
