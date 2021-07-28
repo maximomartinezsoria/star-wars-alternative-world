@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_ALL_PLANETS = gql`
-  query planets($page: Int, $pageSize: Int) {
+  query getAllPlanets($page: Int, $pageSize: Int) {
     planets(page: $page, pageSize: $pageSize) {
       pagination {
         total
