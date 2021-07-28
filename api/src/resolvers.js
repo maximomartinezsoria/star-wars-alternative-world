@@ -58,6 +58,19 @@ const resolvers = {
     },
   },
 
+  Character: {
+    async friends(
+      character,
+      { limit },
+      { dataSources: { charactersService }, user }
+    ) {
+      validateUserIsLoggedIn(user)
+      const friends = await charactersService.getAllCharacters(1, 5)
+      // const friends = await charactersService.getCharacterFriends(character.id, limit)
+      return friends.nodes
+    },
+  },
+
   Mutation: {
     createCharacter(
       _,
