@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-const GET_CHARACTER_DETAILS = gql`
+const GET_CHARACTER_DETAIL = gql`
   query getCharacterDetail($characterId: ID!) {
     character(id: $characterId) {
       id
@@ -20,4 +20,4 @@ const GET_CHARACTER_DETAILS = gql`
   }
 `
 
-export default GET_CHARACTER_DETAILS
+export default GET_CHARACTER_DETAIL
