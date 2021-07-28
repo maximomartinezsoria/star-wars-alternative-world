@@ -5,6 +5,7 @@ const GET_PLANET_DETAIL = gql`
     planet(id: $planetId) {
       id
       name
+      code
       description
       population
       characters {

@@ -4,13 +4,18 @@ import Layout from '../components/Layout'
 import Card from '../components/Card'
 import { useQuery } from '@apollo/client'
 import GET_ALL_PLANETS from '../queries/getAllPlanets'
+import GET_PLANET_DETAIL from '../queries/getPlanetDetail'
 import Grid from '../styles/Grid'
-import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import PlanetFormModal from '../components/modals/PlanetFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
-import GET_CHARACTERS_BY_PLANET from '../queries/getCharactersByPlanet'
 import useNewId from '../hooks/useNewId'
+import Sidebar, {
+  SidebarHeader,
+  SidebarDescriptionList,
+  SidebarCharactersList,
+} from '../components/Sidebar'
+import InlineCard from '../components/InlineCard'
 
 export default function Planets() {
   const history = useHistory()
@@ -21,8 +26,10 @@ export default function Planets() {
   const newPlanetId = useNewId('NEW_PLANET')
 
   const openPlanetsForm = () => history.push('/planets/create')
-  const openCharactersForm = () =>
-    history.push(`/characters/create?planet=${selectedPlanet?.code}`)
+  const openCharactersForm = (planetCode) => {
+    const planetCodeParam = planetCode ? `?planet=${planetCode}` : ''
+    history.push(`/characters/create${planetCodeParam}`)
+  }
 
   if (loading || error)
     return (
@@ -62,20 +69,49 @@ export default function Planets() {
       )}
 
       <Sidebar
-        title={selectedPlanet?.name || ''}
-        text={selectedPlanet?.description || ''}
-        descriptionList={[
-          { title: 'Population', text: `${selectedPlanet?.population}` },
-        ]}
-        charactersListTitle="Characters"
-        charactersQuery={{
-          query: GET_CHARACTERS_BY_PLANET,
-          variables: { planet: +selectedPlanet?.id },
+        query={{
+          query: GET_PLANET_DETAIL,
+          variables: { planetId: +selectedPlanet?.id },
         }}
-        onClose={() => setSelectedPlanet(null)}
-        onPlusButtonClick={openCharactersForm}
         show={!!selectedPlanet}
-      />
+      >
+        {(queryResponse, dataForCharactersList) => (
+          <>
+            <SidebarHeader
+              title={queryResponse.data?.planet.name || ''}
+              text={queryResponse.data?.planet.description || ''}
+              onClose={() => setSelectedPlanet(null)}
+            />
+            <SidebarDescriptionList>
+              <div>
+                <dt>Population</dt>
+                <dd>{queryResponse.data?.planet.population}</dd>
+              </div>
+            </SidebarDescriptionList>
+            <SidebarCharactersList
+              title="Characters"
+              onPlusButtonClick={() =>
+                openCharactersForm(queryResponse.data?.planet.code)
+              }
+              queryInfo={{
+                ...dataForCharactersList,
+                hasCharacters: !!queryResponse.data?.planet.characters.length,
+              }}
+              emptyText="Looks like this planet is empty..."
+            >
+              {queryResponse.data?.planet.characters.map((character) => (
+                <li key={character.id}>
+                  <InlineCard
+                    title={character.name}
+                    image={character.pictureUrl}
+                    text={`${queryResponse.data?.planet.characters.length} friends`}
+                  />
+                </li>
+              ))}
+            </SidebarCharactersList>
+          </>
+        )}
+      </Sidebar>
     </Layout>
   )
 }

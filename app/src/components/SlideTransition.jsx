@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 
@@ -24,10 +25,13 @@ const transitionStyles = {
 }
 
 function SlideTransition({ children, condition, ...props }) {
+  const nodeRef = useRef(null)
+
   return (
-    <Transition in={condition} timeout={duration}>
+    <Transition nodeRef={nodeRef} in={condition} timeout={duration}>
       {(state) => (
         <div
+          ref={nodeRef}
           style={{
             ...defaultStyle,
             ...transitionStyles[state],

@@ -1,16 +1,22 @@
 import { useState } from 'react'
 import { useQuery } from '@apollo/client'
+import { useHistory, Route } from 'react-router-dom'
 import Layout from '../components/Layout'
 import GET_ALL_CHARACTERS from '../queries/getAllCharacters'
+import GET_CHARACTER_DETAIL from '../queries/getCharacterDetail'
 import Grid from '../styles/Grid'
 import Card from '../components/Card'
-import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import CharacterFormModal from '../components/modals/CharacterFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
-import { useHistory, Route } from 'react-router-dom'
 import FilterByPlanet from '../components/FilterByPlanet'
 import useNewId from '../hooks/useNewId'
+import Sidebar, {
+  SidebarHeader,
+  SidebarDescriptionList,
+  SidebarCharactersList,
+} from '../components/Sidebar'
+import InlineCard from '../components/InlineCard'
 
 export default function Characters() {
   const history = useHistory()
@@ -50,7 +56,7 @@ export default function Characters() {
               key={character.id}
               title={character.name}
               image={character.pictureUrl}
-              text="10 friends"
+              text="5 friends"
               className={
                 selectedCharacter && selectedCharacter.id === character.id
                   ? 'selected'
@@ -69,21 +75,51 @@ export default function Characters() {
       )}
 
       <Sidebar
-        title={selectedCharacter?.name || ''}
-        text={selectedCharacter?.description || ''}
-        descriptionList={[
-          { title: 'Planet', text: selectedCharacter?.planet.name || '' },
-          { title: 'Friends', text: `${data?.characters.nodes.length}` },
-        ]}
-        charactersListTitle="Friends"
-        charactersQuery={{
-          query: GET_ALL_CHARACTERS,
-          variables: { pageSize: 3 },
+        query={{
+          query: GET_CHARACTER_DETAIL,
+          variables: { characterId: +selectedCharacter?.id },
         }}
-        onClose={() => setSelectedCharacter(null)}
-        onPlusButtonClick={openForm}
         show={!!selectedCharacter}
-      />
+      >
+        {(queryResponse, dataForCharactersList) => (
+          <>
+            <SidebarHeader
+              title={queryResponse.data?.character.name || ''}
+              text={queryResponse.data?.character.description || ''}
+              onClose={() => setSelectedCharacter(null)}
+            />
+            <SidebarDescriptionList>
+              <div>
+                <dt>Planet</dt>
+                <dd>{queryResponse.data?.character.planet.name}</dd>
+              </div>
+              <div>
+                <dt>Friends</dt>
+                <dd>{queryResponse.data?.character.friends.length}</dd>
+              </div>
+            </SidebarDescriptionList>
+            <SidebarCharactersList
+              title="Friends"
+              onPlusButtonClick={openForm}
+              queryInfo={{
+                ...dataForCharactersList,
+                hasCharacters: !!queryResponse.data?.character.friends.length,
+              }}
+              emptyText={`${queryResponse.data?.character.name} doesn't have any friends.`}
+            >
+              {queryResponse.data?.character.friends.map((friend) => (
+                <li key={friend.id}>
+                  <InlineCard
+                    title={friend.name}
+                    image={friend.pictureUrl}
+                    text={friend.description}
+                  />
+                </li>
+              ))}
+            </SidebarCharactersList>
+          </>
+        )}
+      </Sidebar>
     </Layout>
   )
 }

@@ -12,6 +12,7 @@ const GET_ALL_PLANETS = gql`
         id
         name
         pictureUrl
+        population
       }
     }
   }
