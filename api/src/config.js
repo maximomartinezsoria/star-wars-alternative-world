@@ -17,6 +17,7 @@ export const knexConfig = {
   pool: { min: 0, max: 10 },
 }
 
-export const port = process.env.API_PORT
+// Heroku will set PORT variable
+export const port = process.env.PORT || process.env.API_PORT
 
 export const jwtSecret = process.env.JWT_SECRET
