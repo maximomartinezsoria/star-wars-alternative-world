@@ -18,7 +18,6 @@ const errorLink = onError(({ graphQLErrors }) => {
     })
 })
 
-console.log(`${process.env.REACT_APP_API_URL}/graphql`)
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_API_URL}/graphql`,
 })
