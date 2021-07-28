@@ -9,12 +9,14 @@ import EmptyState from '../components/EmptyState'
 import CharacterFormModal from '../components/modals/CharacterFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
 import { useHistory, Route } from 'react-router-dom'
+import FilterByPlanet from '../components/FilterByPlanet'
 
 export default function Characters() {
   const history = useHistory()
   const [selectedCharacter, setSelectedCharacter] = useState(null)
+  const [selectedPlanet, setSelectedPlanet] = useState(null)
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { pageSize: 12 },
+    variables: { pageSize: 12, planet: selectedPlanet },
   })
 
   const openForm = () => history.push('/characters/create')
@@ -27,7 +29,12 @@ export default function Characters() {
     )
 
   return (
-    <Layout onPlusButtonClick={openForm}>
+    <Layout
+      onPlusButtonClick={openForm}
+      ExtendNavigationComponent={
+        <FilterByPlanet setPlanet={setSelectedPlanet} />
+      }
+    >
       <Route path="/characters/create" component={CharacterFormModal} />
       {data.characters.nodes.length > 0 ? (
         <Grid>

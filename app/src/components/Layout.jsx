@@ -28,12 +28,22 @@ const LayoutStyles = styled.main`
   h1 {
     margin-bottom: 4rem;
   }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    & > div {
+      justify-self: end;
+    }
+  }
 `
 
 export default function Layout({
   children,
   onPlusButtonClick = null,
   showNavigation = true,
+  ExtendNavigationComponent,
 }) {
   return (
     <LayoutStyles>
@@ -41,7 +51,10 @@ export default function Layout({
         <header>
           <h1>Spacious</h1>
         </header>
-        {showNavigation && <Navigation />}
+        <div className="row">
+          {showNavigation && <Navigation />}
+          {ExtendNavigationComponent}
+        </div>
         {children}
         {onPlusButtonClick && (
           <IconButton
@@ -60,4 +73,5 @@ Layout.propTypes = {
   children: PropTypes.node,
   onPlusButtonClick: PropTypes.func,
   showNavigation: PropTypes.bool,
+  ExtendNavigationComponent: PropTypes.node,
 }
