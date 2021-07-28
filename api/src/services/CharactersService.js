@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server-koa'
 import { SQLDataSource } from 'datasource-sql'
 import { createCharacterWithPlanetFromDbResponse } from '../util/createFromDbResponse.js'
 import PlanetsService from './PlanetsService.js'
@@ -48,7 +49,7 @@ class CharactersService extends SQLDataSource {
   async createCharacter(characterData, planetCode) {
     const planet = await PlanetsService.getPlanetByCode(this.knex, planetCode)
 
-    if (!planet) throw new Error('Planet must exist')
+    if (!planet) throw new UserInputError('Planet must exist')
 
     const newCharacterData = await this.knex
       .insert({ ...characterData, planet_id: planet.id })
