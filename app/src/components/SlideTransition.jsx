@@ -10,12 +10,13 @@ const defaultStyle = {
   transitionTimingFunction: 'ease-in-out',
   transitionProperty: 'right, background',
   background: 'transparent',
-  right: '100%',
-  top: '3rem',
+  right: '-200%',
+  top: '50%',
+  transform: 'translateY(-50%)',
 }
 
-const enter = { right: '0' }
-const exit = { right: '-100%' }
+const enter = { right: '2rem' }
+const exit = { right: '-200%' }
 
 const transitionStyles = {
   entering: enter,
