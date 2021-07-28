@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Select from 'react-select'
 import { useQuery } from '@apollo/client'
-import GET_PLANETS from '../queries/getPlanets'
+import GET_PLANET_NAMES from '../queries/getPlanetNames'
 
 const SelectContainerStyles = styled.div`
   width: 15rem;
@@ -19,7 +19,7 @@ const defaultValue = {
 }
 
 export default function FilterByPlanet({ setPlanet }) {
-  const { data } = useQuery(GET_PLANETS)
+  const { data } = useQuery(GET_PLANET_NAMES)
 
   return (
     <SelectContainerStyles>

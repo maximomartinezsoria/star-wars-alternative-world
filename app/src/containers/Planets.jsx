@@ -1,21 +1,21 @@
 import { useState } from 'react'
+import { useHistory, Route } from 'react-router-dom'
 import Layout from '../components/Layout'
 import Card from '../components/Card'
 import { useQuery } from '@apollo/client'
-import GET_PLANETS from '../queries/getPlanets'
+import GET_ALL_PLANETS from '../queries/getAllPlanets'
 import Grid from '../styles/Grid'
 import Sidebar from '../components/Sidebar'
 import EmptyState from '../components/EmptyState'
 import PlanetFormModal from '../components/modals/PlanetFormModal'
 import LoadingAndErrorState from '../components/LoadingAndErrorState'
-import { useHistory, Route } from 'react-router-dom'
-import GET_CHARACTERS from '../queries/getCharacters'
+import GET_CHARACTERS_BY_PLANET from '../queries/getCharactersByPlanet'
 import useNewId from '../hooks/useNewId'
 
 export default function Planets() {
   const history = useHistory()
   const [selectedPlanet, setSelectedPlanet] = useState(null)
-  const { loading, error, data } = useQuery(GET_PLANETS, {
+  const { loading, error, data } = useQuery(GET_ALL_PLANETS, {
     variables: { pageSize: 12 },
   })
   const newPlanetId = useNewId('NEW_PLANET')
@@ -69,7 +69,7 @@ export default function Planets() {
         ]}
         charactersListTitle="Characters"
         charactersQuery={{
-          query: GET_CHARACTERS,
+          query: GET_CHARACTERS_BY_PLANET,
           variables: { planet: +selectedPlanet?.id },
         }}
         onClose={() => setSelectedPlanet(null)}

@@ -6,7 +6,7 @@ import Modal from './Modal'
 import Input from '../forms/Input'
 import Form from '../forms/Form'
 import CREATE_PLANET from '../../mutations/createPlanet'
-import GET_PLANETS from '../../queries/getPlanets'
+import GET_ALL_PLANETS from '../../queries/getAllPlanets'
 import { useHistory } from 'react-router-dom'
 import Emitter from '../../lib/eventEmitter'
 
@@ -15,7 +15,7 @@ export default function PlanetFormModal() {
   const [createPlanet, { loading, error: mutationError }] = useMutation(
     CREATE_PLANET,
     {
-      refetchQueries: [{ query: GET_PLANETS, variables: { pageSize: 12 } }],
+      refetchQueries: [{ query: GET_ALL_PLANETS, variables: { pageSize: 12 } }],
       awaitRefetchQueries: true,
     }
   )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import Layout from '../components/Layout'
-import GET_CHARACTERS from '../queries/getCharacters'
+import GET_ALL_CHARACTERS from '../queries/getAllCharacters'
 import Grid from '../styles/Grid'
 import Card from '../components/Card'
 import Sidebar from '../components/Sidebar'
@@ -16,7 +16,7 @@ export default function Characters() {
   const history = useHistory()
   const [selectedCharacter, setSelectedCharacter] = useState(null)
   const [selectedPlanet, setSelectedPlanet] = useState(null)
-  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+  const { loading, error, data } = useQuery(GET_ALL_CHARACTERS, {
     variables: { pageSize: 12, planet: selectedPlanet?.id },
   })
   const newCharacterId = useNewId('NEW_CHARACTER')
@@ -77,7 +77,7 @@ export default function Characters() {
         ]}
         charactersListTitle="Friends"
         charactersQuery={{
-          query: GET_CHARACTERS,
+          query: GET_ALL_CHARACTERS,
           variables: { pageSize: 3 },
         }}
         onClose={() => setSelectedCharacter(null)}

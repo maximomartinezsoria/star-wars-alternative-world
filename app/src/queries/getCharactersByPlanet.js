@@ -1,7 +1,12 @@
 import { gql } from '@apollo/client'
 
-const GET_CHARACTERS = gql`
-  query Query($page: Int, $pageSize: Int, $planet: ID, $birthDate: String) {
+const GET_CHARACTERS_BY_PLANET = gql`
+  query GetCharactersByPlanet(
+    $page: Int
+    $pageSize: Int
+    $planet: ID
+    $birthDate: String
+  ) {
     characters(
       page: $page
       pageSize: $pageSize
@@ -16,15 +21,11 @@ const GET_CHARACTERS = gql`
       nodes {
         id
         name
-        description
-        bornAt
         pictureUrl
-        planet {
-          name
-        }
+        totalFriends
       }
     }
   }
 `
 
-export default GET_CHARACTERS
+export default GET_CHARACTERS_BY_PLANET

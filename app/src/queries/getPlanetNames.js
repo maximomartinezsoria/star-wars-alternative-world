@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-const GET_PLANETS = gql`
+const GET_PLANET_NAMES = gql`
   query planets($page: Int, $pageSize: Int) {
     planets(page: $page, pageSize: $pageSize) {
       pagination {
@@ -11,13 +11,9 @@ const GET_PLANETS = gql`
       nodes {
         id
         name
-        description
-        code
-        pictureUrl
-        population
       }
     }
   }
 `
 
-export default GET_PLANETS
+export default GET_PLANET_NAMES

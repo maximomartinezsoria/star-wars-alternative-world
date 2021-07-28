@@ -34,7 +34,26 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: from([errorLink, authLink.concat(httpLink)]),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          planet(_, { args, toReference }) {
+            return toReference({
+              __typename: 'Planet',
+              id: args.id,
+            })
+          },
+          character(_, { args, toReference }) {
+            return toReference({
+              __typename: 'Character',
+              id: args.id,
+            })
+          },
+        },
+      },
+    },
+  }),
 })
 
 export default client

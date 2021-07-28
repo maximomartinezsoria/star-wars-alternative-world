@@ -7,7 +7,7 @@ import Modal from './Modal'
 import Input from '../forms/Input'
 import Form from '../forms/Form'
 import CREATE_CHARACTER from '../../mutations/createCharacter'
-import GET_CHARACTERS from '../../queries/getCharacters'
+import GET_ALL_CHARACTERS from '../../queries/getAllCharacters'
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 import Emitter from '../../lib/eventEmitter'
@@ -19,7 +19,7 @@ export default function CharacterFormModal(selectedPlanet) {
     {
       refetchQueries: [
         {
-          query: GET_CHARACTERS,
+          query: GET_ALL_CHARACTERS,
           variables: { pageSize: 12, planet: selectedPlanet?.id },
         },
       ],
