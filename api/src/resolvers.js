@@ -18,6 +18,11 @@ const resolvers = {
       return planetsService.getAllPlanets(page, pageSize)
     },
 
+    planet(_, { id }, { dataSources: { planetsService }, user }) {
+      validateUserIsLoggedIn(user)
+      return planetsService.getPlanetById(id)
+    },
+
     characters(
       _,
       { page = 1, pageSize = 10, planet, birthDate },

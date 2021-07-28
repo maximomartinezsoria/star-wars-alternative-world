@@ -20,6 +20,14 @@ class PlanetsService extends SQLDataSource {
     }
   }
 
+  getPlanetById(id) {
+    return this.knex
+      .first('*')
+      .from('planets')
+      .where({ id })
+      .then(createPlanetFromDbResponse)
+  }
+
   async createPlanet(planetData) {
     const planet = await this.knex
       .insert(planetData)

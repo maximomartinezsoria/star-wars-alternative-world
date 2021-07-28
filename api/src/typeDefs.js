@@ -68,6 +68,7 @@ const typeDefs = gql`
       birthDate: String
     ): CharactersResponse!
     character(id: ID!): Character
+    planet(id: ID!): Planet
   }
 
   type Mutation {
