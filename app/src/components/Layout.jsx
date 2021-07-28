@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import IconButton from './IconButton'
@@ -44,8 +45,23 @@ export default function Layout({
   showNavigation = true,
   ExtendNavigationComponent,
 }) {
+  const mainRef = useRef(null)
+  const [buttonRightPosition, setButtonRightPosition] = useState(0)
+
+  const calcButtonRightPosition = () => {
+    if (!mainRef.current) return
+    setButtonRightPosition(
+      (window.innerWidth - mainRef.current.offsetWidth) / 2 + 10 // 10 is padding
+    )
+  }
+
+  useEffect(() => {
+    calcButtonRightPosition()
+    window.addEventListener('resize', calcButtonRightPosition)
+  }, [mainRef])
+
   return (
-    <LayoutStyles>
+    <LayoutStyles ref={mainRef}>
       <div>
         <header>
           <h1>Spacious</h1>
@@ -61,6 +77,7 @@ export default function Layout({
             theme="dark"
             shape="rounded"
             onClick={onPlusButtonClick}
+            style={{ right: buttonRightPosition }}
           />
         )}
       </div>
