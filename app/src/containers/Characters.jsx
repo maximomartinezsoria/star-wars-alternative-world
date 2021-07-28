@@ -59,23 +59,22 @@ export default function Characters() {
         <EmptyState entity="Character" onClick={openForm} />
       )}
 
-      {selectedCharacter && (
-        <Sidebar
-          title={selectedCharacter.name}
-          text={selectedCharacter.description}
-          descriptionList={[
-            { title: 'Planet', text: selectedCharacter.planet.name },
-            { title: 'Friends', text: `${data.characters.nodes.length}` },
-          ]}
-          charactersListTitle="Friends"
-          charactersQuery={{
-            query: GET_CHARACTERS,
-            variables: { pageSize: 3 },
-          }}
-          onClose={() => setSelectedCharacter(null)}
-          onPlusButtonClick={openForm}
-        />
-      )}
+      <Sidebar
+        title={selectedCharacter?.name || ''}
+        text={selectedCharacter?.description || ''}
+        descriptionList={[
+          { title: 'Planet', text: selectedCharacter?.planet.name || '' },
+          { title: 'Friends', text: `${data?.characters.nodes.length}` },
+        ]}
+        charactersListTitle="Friends"
+        charactersQuery={{
+          query: GET_CHARACTERS,
+          variables: { pageSize: 3 },
+        }}
+        onClose={() => setSelectedCharacter(null)}
+        onPlusButtonClick={openForm}
+        show={!!selectedCharacter}
+      />
     </Layout>
   )
 }

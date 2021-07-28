@@ -57,22 +57,21 @@ export default function Planets() {
         <EmptyState entity="Planet" onClick={openPlanetsForm} />
       )}
 
-      {selectedPlanet && (
-        <Sidebar
-          title={selectedPlanet.name}
-          text={selectedPlanet.description}
-          descriptionList={[
-            { title: 'Population', text: `${selectedPlanet.population}` },
-          ]}
-          charactersListTitle="Characters"
-          charactersQuery={{
-            query: GET_CHARACTERS,
-            variables: { planet: +selectedPlanet.id },
-          }}
-          onClose={() => setSelectedPlanet(null)}
-          onPlusButtonClick={openCharactersForm}
-        />
-      )}
+      <Sidebar
+        title={selectedPlanet?.name || ''}
+        text={selectedPlanet?.description || ''}
+        descriptionList={[
+          { title: 'Population', text: `${selectedPlanet?.population}` },
+        ]}
+        charactersListTitle="Characters"
+        charactersQuery={{
+          query: GET_CHARACTERS,
+          variables: { planet: +selectedPlanet?.id },
+        }}
+        onClose={() => setSelectedPlanet(null)}
+        onPlusButtonClick={openCharactersForm}
+        show={!!selectedPlanet}
+      />
     </Layout>
   )
 }

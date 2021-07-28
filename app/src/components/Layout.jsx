@@ -16,7 +16,6 @@ const LayoutStyles = styled.main`
 
   & > div {
     min-height: 100vh;
-    transform: translateZ(0);
 
     & > button {
       position: fixed;

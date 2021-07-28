@@ -4,11 +4,9 @@ import styled from 'styled-components'
 import CharacterCard from './CharacterCard'
 import IconButton from './IconButton'
 import LoadingAndErrorState from './LoadingAndErrorState'
+import SlideTransition from './SlideTransition'
 
 const SidebarStyles = styled.aside`
-  position: fixed;
-  top: 3rem;
-  right: 0;
   width: 40rem;
   max-width: 100%;
   min-height: 90vh;
@@ -87,59 +85,63 @@ export default function Sidebar({
   charactersListTitle,
   charactersQuery,
   onClose,
+  show = false,
   onPlusButtonClick = null,
 }) {
-  const { data, loading, error } = useQuery(charactersQuery.query, {
-    variables: charactersQuery.variables,
+  const { data, loading, error } = useQuery(charactersQuery?.query, {
+    variables: charactersQuery?.variables,
+    skip: !show,
   })
 
   return (
-    <SidebarStyles>
-      <IconButton
-        onClick={onClose}
-        icon="times"
-        shape="squared"
-        theme="light"
-        className="close-button"
-      />
-      <h2>{title}</h2>
-      <p>{text}</p>
-      <dl>
-        {descriptionList.map(({ title, text }, idx) => (
-          <div key={idx}>
-            <dt>{title}</dt>
-            <dd>{text}</dd>
+    <SlideTransition condition={show}>
+      <SidebarStyles>
+        <IconButton
+          onClick={onClose}
+          icon="times"
+          shape="squared"
+          theme="light"
+          className="close-button"
+        />
+        <h2>{title}</h2>
+        <p>{text}</p>
+        <dl>
+          {descriptionList.map(({ title, text }, idx) => (
+            <div key={idx}>
+              <dt>{title}</dt>
+              <dd>{text}</dd>
+            </div>
+          ))}
+        </dl>
+        <CardsListStyles>
+          <div>
+            <h3>{charactersListTitle}</h3>
+            {onPlusButtonClick && (
+              <IconButton
+                icon="add"
+                shape="squared"
+                theme="light"
+                onClick={onPlusButtonClick}
+              />
+            )}
           </div>
-        ))}
-      </dl>
-      <CardsListStyles>
-        <div>
-          <h3>{charactersListTitle}</h3>
-          {onPlusButtonClick && (
-            <IconButton
-              icon="add"
-              shape="squared"
-              theme="light"
-              onClick={onPlusButtonClick}
-            />
-          )}
-        </div>
 
-        {loading || error ? (
-          <LoadingAndErrorState error={!!error} />
-        ) : data.characters.nodes.length === 0 ? (
-          <p>Looks like this planet is empty...</p>
-        ) : (
-          <ul>
-            {data.characters.nodes.map((character) => (
-              <li key={character.id}>
-                <CharacterCard character={character} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </CardsListStyles>
-    </SidebarStyles>
+          {loading || error ? (
+            <LoadingAndErrorState error={!!error} />
+          ) : data?.characters.nodes.length === 0 ? (
+            <p>Looks like this planet is empty...</p>
+          ) : (
+            <ul>
+              {data?.characters.nodes.map((character) => (
+                <li key={character.id}>
+                  <CharacterCard character={character} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardsListStyles>
+      </SidebarStyles>
+    </SlideTransition>
   )
 }
 
@@ -158,5 +160,6 @@ Sidebar.propTypes = {
     variables: PropTypes.isRequired,
   }),
   onClose: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
   onPlusButtonClick: PropTypes.func,
 }
