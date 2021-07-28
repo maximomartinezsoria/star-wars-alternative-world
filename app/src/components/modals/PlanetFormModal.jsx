@@ -52,13 +52,16 @@ export default function PlanetFormModal() {
   }
 
   const onSubmit = async (planetInfo) => {
-    const newPlanet = await createPlanet({ variables: { planetInfo } }).catch(
-      console.error
-    )
-    if (mutationError) return
-    resetForm()
-    Emitter.emit('NEW_PLANET', newPlanet?.data?.createPlanet.id)
-    closeForm()
+    try {
+      const newPlanet = await createPlanet({ variables: { planetInfo } })
+      console.log(newPlanet)
+      if (mutationError) return
+      resetForm()
+      Emitter.emit('NEW_PLANET', newPlanet?.data?.createPlanet.id)
+      closeForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

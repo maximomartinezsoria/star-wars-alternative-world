@@ -23,6 +23,7 @@ export default function CharacterFormModal(selectedPlanet) {
           variables: { pageSize: 12, planet: selectedPlanet?.id },
         },
       ],
+      awaitRefetchQueries: true,
     }
   )
   const {
@@ -67,18 +68,22 @@ export default function CharacterFormModal(selectedPlanet) {
   }
 
   const onSubmit = async (characterInfo) => {
-    const newCharacter = await createCharacter({
-      variables: {
-        characterInfo: {
-          ...characterInfo,
-          bornAt: characterInfo.bornAt.toISOString().slice(0, 10),
+    try {
+      const newCharacter = await createCharacter({
+        variables: {
+          characterInfo: {
+            ...characterInfo,
+            bornAt: characterInfo.bornAt.toISOString().slice(0, 10),
+          },
         },
-      },
-    }).catch(console.error)
-    if (mutationError) return
-    resetForm()
-    Emitter.emit('NEW_CHARACTER', newCharacter?.data?.createCharacter.id)
-    closeForm()
+      })
+      if (mutationError) return
+      resetForm()
+      Emitter.emit('NEW_CHARACTER', newCharacter?.data?.createCharacter.id)
+      closeForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
