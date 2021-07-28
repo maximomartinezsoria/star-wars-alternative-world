@@ -22,7 +22,7 @@ class PlanetsService extends SQLDataSource {
 
   getPlanetById(id) {
     return this.knex
-      .first('*')
+      .first('*', this.knex.raw(PlanetsService.populationQuery()))
       .from('planets')
       .where({ id })
       .then(createPlanetFromDbResponse)
