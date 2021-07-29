@@ -9,11 +9,12 @@ import Form from '../forms/Form'
 import CREATE_CHARACTER from '../../mutations/createCharacter'
 import GET_ALL_CHARACTERS from '../../queries/getAllCharacters'
 import { useHistory } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Emitter from '../../lib/eventEmitter'
 
 export default function CharacterFormModal(selectedPlanet) {
   const history = useHistory()
+  const [errorMessage, setErrorMessage] = useState(null)
   const [createCharacter, { loading, error: mutationError }] = useMutation(
     CREATE_CHARACTER,
     {
@@ -83,6 +84,11 @@ export default function CharacterFormModal(selectedPlanet) {
       closeForm()
     } catch (error) {
       console.log(error)
+      if (error.message.match(/planet must exist/i)) {
+        setErrorMessage(
+          "The planet code doesn't match any planet in our records. Please, insert an existent planet code."
+        )
+      }
     }
   }
 
@@ -94,6 +100,7 @@ export default function CharacterFormModal(selectedPlanet) {
         submitButtonLabel="Create Character"
         mutationFailed={!!mutationError}
         mutationLoading={loading}
+        errorMessage={errorMessage}
         entity="character"
       >
         <Input
