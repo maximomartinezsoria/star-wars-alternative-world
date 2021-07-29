@@ -49,7 +49,7 @@ const GlobalStyles = createGlobalStyle`
     height: auto;
     position: relative;
     overflow: hidden;
-    padding-bottom: 65%;
+    padding-bottom: 75%;
     margin: 0;
 
     img {
