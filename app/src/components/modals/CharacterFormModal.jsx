@@ -112,7 +112,7 @@ export default function CharacterFormModal(selectedPlanet) {
           error={
             // Type error doesn't make sense here since we're using an input[type=date]
             errors.bornAt && errors.bornAt.type === 'typeError'
-              ? 'Born at is a requried field'
+              ? 'Born at is a required field'
               : errors.bornAt?.message
           }
           {...register('bornAt')}
