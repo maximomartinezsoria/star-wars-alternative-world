@@ -11,6 +11,7 @@ const GET_ALL_PLANETS = gql`
       nodes {
         id
         name
+        code
         pictureUrl
         population
       }
