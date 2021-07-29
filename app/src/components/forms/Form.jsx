@@ -33,6 +33,8 @@ export default function Form({
   cancelButton,
   mutationFailed,
   mutationLoading,
+  entity,
+  errorMessage,
   ...props
 }) {
   return (
@@ -40,8 +42,9 @@ export default function Form({
       {children}
       {mutationFailed && (
         <span className="mutation-error" role="alert">
-          Bummer! We can’t create this planet right now. Probably a black hole
-          in the way. Try later please.
+          {errorMessage
+            ? errorMessage
+            : `Bummer! We can’t create this ${entity} right now. Probably a black hole in the way. Try later please.`}
         </span>
       )}
       <div className="buttons-container">
@@ -67,4 +70,6 @@ Form.propTypes = {
   }),
   mutationFailed: PropTypes.bool.isRequired,
   mutationLoading: PropTypes.bool.isRequired,
+  entity: PropTypes.string,
+  errorMessage: PropTypes.string,
 }
