@@ -20,6 +20,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--gray);
   }
 
+  p {
+    word-break: break-word;
+  }
+
   button {
     padding: 1.2rem 2.4rem;
     background-color: var(--primary);
