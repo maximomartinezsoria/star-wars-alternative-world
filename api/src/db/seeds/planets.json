@@ -3,18 +3,36 @@
     "name": "Tatooine",
     "description": "Tatooine is a sparsely inhabited circumbinary desert planet located in the galaxy's Outer Rim Territories.",
     "code": "XT-FOE-43",
-    "pictureUrl": "https://upload.wikimedia.org/wikipedia/en/6/6d/Tatooine_%28fictional_desert_planet%29.jpg"
+    "pictureUrl": "https://www.dropbox.com/s/szbwb5c1so2u3q4/planet-1.svg?raw=1"
   },
   {
     "name": "Aargau",
     "description": "Aargau is a planet in the Zug system of the Core Worlds region, not far from Coruscant and the Corellian Run.",
     "code": "FN-BBA-22",
-    "pictureUrl": "https://static.wikia.nocookie.net/starwars/images/a/a9/Aargau.jpg"
+    "pictureUrl": "https://www.dropbox.com/s/vzmqha23sqnakb4/planet-2.svg?raw=1"
   },
   {
     "name": "Malastare",
     "description": "Malastare is the high-gravity homeworld of the quadrupedal Dug race, on the Hydian Way.",
     "code": "EM-PVA-98",
-    "pictureUrl": "https://static.wikia.nocookie.net/starwars/images/d/df/MalastareNEGAS.jpg"
+    "pictureUrl": "https://www.dropbox.com/s/p8h8br4y0uqdr6y/planet-3.svg?raw=1"
+  },
+  {
+    "name": "Earth",
+    "description": "Pretty good place to live this one.",
+    "code": "UF-DWE-94",
+    "pictureUrl": "https://www.dropbox.com/s/p8vfpq7vql2ku8e/planet-4.svg?raw=1"
+  },
+  {
+    "name": "Pluto",
+    "description": "Yes, Pluto is a planet.",
+    "code": "TR-UWF-25",
+    "pictureUrl": "https://www.dropbox.com/s/v28f0b0euzewggq/planet-5.svg?raw=1"
+  },
+  {
+    "name": "GFSDDFsdfsdf",
+    "description": "No one knows what that name means.",
+    "code": "HE-YWA-16",
+    "pictureUrl": "https://www.dropbox.com/s/vn55i9iy7loi4iy/planet-6.svg?raw=1"
   }
 ]

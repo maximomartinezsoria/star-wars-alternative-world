@@ -4,41 +4,55 @@
     "description": "Chewbacca, known affectionately to his friends as Chewie, is a Wookiee male warrior, smuggler, mechanic, pilot, and resistance fighter.",
     "bornAt": "1994-08-29T21:10:00Z",
     "planet": "FN-BBA-22",
-    "pictureUrl": "https://upload.wikimedia.org/wikipedia/en/6/6d/Chewbacca-2-.jpg"
+    "pictureUrl": "https://www.dropbox.com/s/qw3o2tk06hlac67/character-1.png?raw=1"
   },
   {
     "name": "Norbert Ériu",
     "description": "Norbert is a farmer.",
     "bornAt": "1983-12-25T23:56:00Z",
     "planet": "FN-BBA-22",
-    "pictureUrl": "https://images.unsplash.com/photo-1588422333078-44ad73367bcb"
+    "pictureUrl": "https://www.dropbox.com/s/kbqyw9szvv72he9/character-2.png?raw=1"
   },
   {
     "name": "Sümeyye Sitora",
     "description": "Sümeyye is a teacher.",
     "bornAt": "2093-11-24T12:10:00Z",
     "planet": "FN-BBA-22",
-    "pictureUrl": "https://images.unsplash.com/photo-1606103955054-99913abd77c8"
+    "pictureUrl": "https://www.dropbox.com/s/j4sbvgggvw4k5xu/character-3.png?raw=1"
   },
   {
     "name": "Cori Blagovesta",
     "description": "Cori is known as the most teasing person in the galaxy.",
     "bornAt": "0004-01-01T09:24:00Z",
     "planet": "XT-FOE-43",
-    "pictureUrl": "https://images.unsplash.com/photo-1530071100468-90954e4921d0"
+    "pictureUrl": "https://www.dropbox.com/s/xcon28vpcabdylv/character-4.png?raw=1"
   },
   {
     "name": "Nisha Amala",
     "description": "Nisha is curious about what happens in the Outer Rim",
     "bornAt": "0749-04-12T05:02:00Z",
     "planet": "XT-FOE-43",
-    "pictureUrl": "https://images.unsplash.com/photo-1592210566091-9e18a5fc01b4"
+    "pictureUrl": "https://www.dropbox.com/s/iwf580yr5qjywlc/character-5.png?raw=1"
   },
   {
     "name": "Spyro Gerarda",
     "description": "Spyro is Spyro",
     "bornAt": "4001-10-21T01:59:00Z",
     "planet": "EM-PVA-98",
-    "pictureUrl": "https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc"
+    "pictureUrl": "https://www.dropbox.com/s/q1w4gnh114x2ooo/character-6.png?raw=1"
+  },
+  {
+    "name": "Character fads",
+    "description": "This one is the description of this character",
+    "bornAt": "1294-02-12T21:10:00Z",
+    "planet": "HE-YWA-16",
+    "pictureUrl": "https://www.dropbox.com/s/lldflvulxtsh7u7/character-7.png?raw=1"
+  },
+  {
+    "name": "GF ghde",
+    "description": "I don't know what else to write here haha",
+    "bornAt": "1974-08-19T21:10:00Z",
+    "planet": "UF-DWE-94",
+    "pictureUrl": "https://www.dropbox.com/s/wyrzhnqyd11batr/character-8.png?raw=1"
   }
 ]
