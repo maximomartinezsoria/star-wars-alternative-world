@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useHistory, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Layout from '../components/Layout'
 import GET_CHARACTER_DETAIL from '../queries/getCharacterDetail'
 import CharacterFormModal from '../components/modals/CharacterFormModal'
@@ -11,13 +11,12 @@ import Sidebar, {
 } from '../components/Sidebar'
 import InlineCard from '../components/InlineCard'
 import CharactersGrid from '../components/CharactersGrid'
+import useOpenCharacterForm from '../hooks/useOpenCharacterForm'
 
 export default function Characters() {
-  const history = useHistory()
   const [selectedCharacter, setSelectedCharacter] = useState(null)
   const [selectedPlanet, setSelectedPlanet] = useState(null)
-
-  const openForm = () => history.push('/characters/create')
+  const openForm = useOpenCharacterForm(selectedPlanet)
 
   return (
     <Layout
@@ -29,7 +28,7 @@ export default function Characters() {
       <Route
         path="/characters/create"
         render={(props) => (
-          <CharacterFormModal {...props} selectedPlanet={selectedPlanet} />
+          <CharacterFormModal {...props} selectedPlanet={selectedPlanet?.id} />
         )}
       />
 

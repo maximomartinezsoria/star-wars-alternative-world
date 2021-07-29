@@ -10,18 +10,14 @@ import Sidebar, {
 } from '../components/Sidebar'
 import InlineCard from '../components/InlineCard'
 import PlanetsGrid from '../components/PlanetsGrid'
+import useOpenCharacterForm from '../hooks/useOpenCharacterForm'
 
 export default function Planets() {
   const history = useHistory()
   const [selectedPlanet, setSelectedPlanet] = useState(null)
+  const openCharactersForm = useOpenCharacterForm(selectedPlanet)
 
   const openPlanetsForm = () => history.push('/planets/create')
-  const openCharactersForm = () => {
-    const planetCodeParam = selectedPlanet
-      ? `?planet=${selectedPlanet.code}`
-      : ''
-    history.push(`/characters/create${planetCodeParam}`)
-  }
 
   return (
     <Layout
