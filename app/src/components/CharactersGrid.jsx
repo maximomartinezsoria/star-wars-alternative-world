@@ -53,9 +53,9 @@ export default function CharactersGrid({
 CharactersGrid.propTypes = {
   selectedCharacter: PropTypes.shape({
     id: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   selectedPlanet: PropTypes.shape({
     id: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   setSelectedCharacter: PropTypes.func,
 }

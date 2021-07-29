@@ -48,6 +48,6 @@ export default function PlanetsGrid({ selectedPlanet, setSelectedPlanet }) {
 PlanetsGrid.propTypes = {
   selectedPlanet: PropTypes.shape({
     id: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   setSelectedPlanet: PropTypes.func,
 }
