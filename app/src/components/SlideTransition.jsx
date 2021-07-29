@@ -6,17 +6,15 @@ const duration = 300
 
 const defaultStyle = {
   position: 'fixed',
-  transitionDuration: `${duration}ms`,
-  transitionTimingFunction: 'ease-in-out',
-  transitionProperty: 'right, background',
+  transition: `transform ${duration}ms ease-in-out`,
   background: 'transparent',
-  right: '-200%',
+  right: '0',
   top: '50%',
-  transform: 'translateY(-50%)',
+  transform: 'translateY(-50%) translateX(100%)',
 }
 
-const enter = { right: '2rem' }
-const exit = { right: '-200%' }
+const enter = { transform: 'translateY(-50%) translateX(-2rem)' }
+const exit = { transform: 'translateY(-50%) translateX(100%)' }
 
 const transitionStyles = {
   entering: enter,
