@@ -63,7 +63,7 @@ export default function FilterByPlanet({ setPlanet }) {
   }, [data])
 
   return (
-    <SelectContainerStyles>
+    <SelectContainerStyles className="FilterByPlanet">
       <Select
         styles={{
           control: (provided) => ({
