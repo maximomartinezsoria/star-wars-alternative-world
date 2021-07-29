@@ -1,4 +1,5 @@
 import Card from '../components/Card'
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/client'
 import GET_ALL_PLANETS from '../queries/getAllPlanets'
 import Grid from '../styles/Grid'
@@ -21,7 +22,7 @@ export default function PlanetsGrid({ selectedPlanet, setSelectedPlanet }) {
   if (data.planets.nodes.length === 0)
     return <EmptyState entity="Planet" onClick={openPlanetsForm} />
   return (
-    <Grid>
+    <Grid className="PlanetsGrid">
       {data.planets.nodes.map((planet) => (
         <Card
           key={planet.id}
@@ -42,4 +43,11 @@ export default function PlanetsGrid({ selectedPlanet, setSelectedPlanet }) {
       ))}
     </Grid>
   )
+}
+
+PlanetsGrid.propTypes = {
+  selectedPlanet: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  setSelectedPlanet: PropTypes.func,
 }
