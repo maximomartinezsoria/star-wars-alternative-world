@@ -6,16 +6,25 @@ class PlanetsService extends SQLDataSource {
     return '(select count(*) from characters where characters.planet_id = planets.id) as population'
   }
 
-  async getAllPlanets(page = 1, pageSize = 10) {
+  async getAllPlanets(page = 1, pageSize = 10, planetName = '') {
     const planetsData = await this.knex
       .select('*', this.knex.raw(PlanetsService.populationQuery()))
       .from('planets')
+      .where((builder) => {
+        if (planetName && planetName.length > 0)
+          return builder.whereRaw(`LOWER(name) ILIKE LOWER('%${planetName}%')`)
+        return true
+      })
       .limit(pageSize)
       .offset(page === 1 ? 0 : page * pageSize)
       .orderBy('planets.created_at', 'DESC')
     const planets = planetsData.map(createPlanetFromDbResponse)
     return {
-      pagination: { total: this.getTotalRecords(), page, pageSize },
+      pagination: {
+        total: this.getTotalRecords(),
+        page,
+        pageSize: planets.length,
+      },
       nodes: planets,
     }
   }
