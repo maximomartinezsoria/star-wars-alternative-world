@@ -20,13 +20,13 @@ docker-compose up
 docker-compose -f docker-compose-prod.yml up
 ```
 
-3. Run database migrations. ** I think knex has an issue with esm. You'll have to run this command 3 times for it to work. After the third time, you'll get this green message: "Batch 1 run: 4 migrations"**
+3. Run database migrations. **I think knex might has an issue with esm. You'll have to run this command 3 times for it to work. After the third time, you'll get this green message: "Batch 1 run: 4 migrations"**
 
 ```
 docker-compose exec api yarn knex migrate:latest --esm
 ```
 
-4. Run database seeders. ** I think knex has an issue with esm. You'll have to run this command twice for it to work (yes, migrations three times but seeders only twice, kinda funny 😄). After the second time, you'll get this green message: "Ran 3 seed files"**
+4. Run database seeders. **I think knex might has an issue with esm. You'll have to run this command twice for it to work (yes, migrations three times but seeders only twice, kinda funny 😄). After the second time, you'll get this green message: "Ran 3 seed files"**
 
 ```
 docker-compose exec api yarn knex seed:run --esm
@@ -56,13 +56,13 @@ cp .env.example .env
 yarn install
 ```
 
-3. Run database migrations. ** I think knex has an issue with esm. You'll have to run this command 3 times for it to work. After the third time, you'll get this green message: "Batch 1 run: 4 migrations"**
+3. Run database migrations. **I think knex might has an issue with esm. You'll have to run this command 3 times for it to work. After the third time, you'll get this green message: "Batch 1 run: 4 migrations"**
 
 ```
 docker-compose exec api yarn knex migrate:latest --esm
 ```
 
-4. Run database seeders. ** I think knex has an issue with esm. You'll have to run this command twice (yes, migrations three times and this one twice, kinda funny 😄) for it to work. After the second time, you'll get this green message: "Ran 3 seed files"**
+4. Run database seeders. **I think knex might has an issue with esm. You'll have to run this command twice for it to work (yes, migrations three times but seeders only twice, kinda funny 😄). After the second time, you'll get this green message: "Ran 3 seed files"**
 
 ```
 docker-compose exec api yarn knex seed:run --esm
