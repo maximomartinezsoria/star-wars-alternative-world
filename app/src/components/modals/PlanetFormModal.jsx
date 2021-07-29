@@ -72,6 +72,7 @@ export default function PlanetFormModal() {
         submitButtonLabel="Create Planet"
         mutationFailed={!!mutationError}
         mutationLoading={loading}
+        entity="planet"
       >
         <Input
           name="pictureUrl"

@@ -94,6 +94,7 @@ export default function CharacterFormModal(selectedPlanet) {
         submitButtonLabel="Create Character"
         mutationFailed={!!mutationError}
         mutationLoading={loading}
+        entity="character"
       >
         <Input
           name="pictureUrl"
@@ -108,14 +109,19 @@ export default function CharacterFormModal(selectedPlanet) {
           name="bornAt"
           type="date"
           label="Born At"
-          error={errors.name?.bornAt}
+          error={
+            // Type error doesn't make sense here since we're using an input[type=date]
+            errors.bornAt && errors.bornAt.type === 'typeError'
+              ? 'Born at is a requried field'
+              : errors.bornAt?.message
+          }
           {...register('bornAt')}
         />
         <Input
           name="planet"
           type="text"
           label="Planet Code"
-          error={errors.name?.planet}
+          error={errors.planet?.message}
           {...register('planet')}
         />
         <Input
