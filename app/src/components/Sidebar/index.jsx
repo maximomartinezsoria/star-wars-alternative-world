@@ -5,7 +5,7 @@ import SlideTransition from '../SlideTransition'
 
 const SidebarStyles = styled.aside`
   width: 40rem;
-  max-width: 100%;
+  max-width: 90vw;
   min-height: 90vh;
   max-height: 100vh;
   background-color: var(--white);

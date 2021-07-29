@@ -27,11 +27,18 @@ const LayoutStyles = styled.main`
 
   h1 {
     margin-bottom: 4rem;
+    @media (max-width: 768px) {
+      text-align: center;
+    }
   }
 
   .row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
 
     & > div {
       justify-self: end;

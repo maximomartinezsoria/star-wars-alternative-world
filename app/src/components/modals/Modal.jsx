@@ -14,6 +14,13 @@ const ModalStyles = styled.div`
   border-radius: 32px;
   width: 80rem;
   max-width: 100%;
+  max-height: 90vh;
+  overflow: scroll;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .title {
     margin-bottom: 1.5rem;
