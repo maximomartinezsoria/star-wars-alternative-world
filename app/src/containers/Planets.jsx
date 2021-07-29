@@ -16,8 +16,10 @@ export default function Planets() {
   const [selectedPlanet, setSelectedPlanet] = useState(null)
 
   const openPlanetsForm = () => history.push('/planets/create')
-  const openCharactersForm = (planetCode) => {
-    const planetCodeParam = planetCode ? `?planet=${planetCode}` : ''
+  const openCharactersForm = () => {
+    const planetCodeParam = selectedPlanet
+      ? `?planet=${selectedPlanet.code}`
+      : ''
     history.push(`/characters/create${planetCodeParam}`)
   }
 
@@ -54,9 +56,7 @@ export default function Planets() {
             </SidebarDescriptionList>
             <SidebarCharactersList
               title="Characters"
-              onPlusButtonClick={() =>
-                openCharactersForm(queryResponse.data?.planet.code)
-              }
+              onPlusButtonClick={() => openCharactersForm()}
               queryInfo={{
                 ...dataForCharactersList,
                 hasCharacters: !!queryResponse.data?.planet.characters.length,
