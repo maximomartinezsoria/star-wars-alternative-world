@@ -18,7 +18,7 @@
     "pg": "^8.6.0"
   },
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js",
     "dev": "nodemon ./src/index.js"
   },
   "devDependencies": {
