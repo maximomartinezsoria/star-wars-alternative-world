@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/client'
 import GET_ALL_CHARACTERS from '../queries/getAllCharacters'
 import Grid from '../styles/Grid'
@@ -26,7 +27,7 @@ export default function CharactersGrid({
     return <EmptyState entity="Character" onClick={openForm} />
 
   return (
-    <Grid>
+    <Grid className="CharactersGrid">
       {data.characters.nodes.map((character) => (
         <Card
           key={character.id}
@@ -47,4 +48,14 @@ export default function CharactersGrid({
       ))}
     </Grid>
   )
+}
+
+CharactersGrid.propTypes = {
+  selectedCharacter: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  selectedPlanet: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  setSelectedCharacter: PropTypes.func,
 }
