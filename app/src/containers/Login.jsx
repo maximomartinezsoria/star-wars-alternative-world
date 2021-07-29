@@ -43,12 +43,14 @@ export default function Login() {
   })
 
   const onSubmit = async (userInfo) => {
-    const data = await loginMutation({ variables: { userInfo } }).catch(
-      console.error
-    )
-    if (mutationError) return
-    logIn(data.data.login)
-    history.push('/')
+    try {
+      const data = await loginMutation({ variables: { userInfo } })
+      if (mutationError) return
+      logIn(data?.data.login)
+      history.push('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -59,12 +61,15 @@ export default function Login() {
           submitButtonLabel="Login"
           mutationFailed={!!mutationError}
           mutationLoading={loading}
+          className="LoginForm"
+          errorMessage="Bummer! We can’t log you in right now. Probably a black hole in the way. Try later please."
         >
           <Input
             name="username"
             type="text"
             label="Username"
             error={errors.username?.message}
+            className="LoginForm__username"
             {...register('username')}
           />
           <Input
@@ -72,6 +77,7 @@ export default function Login() {
             type="password"
             label="Password"
             error={errors.password?.message}
+            className="LoginForm__password"
             {...register('password')}
           />
         </Form>
