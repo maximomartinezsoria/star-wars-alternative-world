@@ -14,12 +14,13 @@ const SelectContainerStyles = styled.div`
   }
 `
 
+const pageSize = 10
 export default function FilterByPlanet({ setPlanet }) {
   const [options, setOptions] = useState([])
   const [value, setValue] = useState(null)
   const [inputValue, setInputValue] = useState('')
   const { data, fetchMore } = useQuery(GET_PLANET_NAMES, {
-    variables: { planetName: inputValue, page: 1 },
+    variables: { planetName: inputValue, page: 1, pageSize },
   })
   const timeout = useRef(null)
 
@@ -28,31 +29,30 @@ export default function FilterByPlanet({ setPlanet }) {
       setInputValue(value ? value.label : '')
     }
     if (action === 'input-change') {
-      console.log('input change')
       setInputValue(planetName)
       if (timeout.current) clearTimeout(timeout.current)
       timeout.current = setTimeout(() => {
-        fetchMore({ variables: { planetName, page: 1 } })
+        fetchMore({ variables: { planetName, page: 1, pageSize } })
       }, 300)
     }
   }
 
   const onMenuScrollToBottom = () => {
     const currentPage = data?.planets.pagination.page
-    const page = currentPage ? currentPage + 1 : 1
-    fetchMore({ variables: { planetName: inputValue, page } })
+    const totalResults = data?.planets.pagination.total
+    const totalPages = Math.ceil(totalResults / pageSize)
+    if (currentPage >= totalPages) return
+    fetchMore({
+      variables: { planetName: inputValue, page: currentPage + 1, pageSize },
+    })
   }
 
   const onChange = (option) => {
     setValue(option)
-    // setPlanet(
-    //   option ? data?.planets.nodes.find(({ id }) => id === option.value) : null
-    // )
+    setPlanet(
+      option ? data?.planets.nodes.find(({ id }) => id === option.value) : null
+    )
   }
-
-  // useEffect(() => {
-
-  // }, [value])
 
   useEffect(() => {
     const newOptions = data?.planets.nodes.map(({ id, name }) => ({
@@ -106,6 +106,7 @@ export default function FilterByPlanet({ setPlanet }) {
         inputValue={inputValue}
         onChange={onChange}
         value={value}
+        setValue={setValue}
         isClearable={true}
       />
     </SelectContainerStyles>
