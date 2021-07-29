@@ -10,12 +10,12 @@ const resolvers = {
   Query: {
     planets(
       _,
-      { page = 1, pageSize = 10 },
+      { page = 1, pageSize = 10, planetName },
       { dataSources: { planetsService }, user }
     ) {
       validateUserIsLoggedIn(user)
       validatePagination(page, pageSize)
-      return planetsService.getAllPlanets(page, pageSize)
+      return planetsService.getAllPlanets(page, pageSize, planetName)
     },
 
     planet(_, { id }, { dataSources: { planetsService }, user }) {

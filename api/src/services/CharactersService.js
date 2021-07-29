@@ -34,7 +34,11 @@ class CharactersService extends SQLDataSource {
       createCharacterWithPlanetFromDbResponse
     )
     return {
-      pagination: { total: this.getTotalRecords(), page, pageSize },
+      pagination: {
+        total: this.getTotalRecords(),
+        page,
+        pageSize: characters.length,
+      },
       nodes: characters,
     }
   }

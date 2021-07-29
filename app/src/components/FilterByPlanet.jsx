@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Select from 'react-select'
@@ -13,13 +14,53 @@ const SelectContainerStyles = styled.div`
   }
 `
 
-const defaultValue = {
-  label: 'Planet: All',
-  value: null,
-}
-
 export default function FilterByPlanet({ setPlanet }) {
-  const { data } = useQuery(GET_PLANET_NAMES)
+  const [options, setOptions] = useState([])
+  const [value, setValue] = useState(null)
+  const [inputValue, setInputValue] = useState('')
+  const { data, fetchMore } = useQuery(GET_PLANET_NAMES, {
+    variables: { planetName: inputValue, page: 1 },
+  })
+  const timeout = useRef(null)
+
+  const onInputChange = (planetName, { action }) => {
+    if (action === 'input-blur') {
+      setInputValue(value ? value.label : '')
+    }
+    if (action === 'input-change') {
+      console.log('input change')
+      setInputValue(planetName)
+      if (timeout.current) clearTimeout(timeout.current)
+      timeout.current = setTimeout(() => {
+        fetchMore({ variables: { planetName, page: 1 } })
+      }, 300)
+    }
+  }
+
+  const onMenuScrollToBottom = () => {
+    const currentPage = data?.planets.pagination.page
+    const page = currentPage ? currentPage + 1 : 1
+    fetchMore({ variables: { planetName: inputValue, page } })
+  }
+
+  const onChange = (option) => {
+    setValue(option)
+    // setPlanet(
+    //   option ? data?.planets.nodes.find(({ id }) => id === option.value) : null
+    // )
+  }
+
+  // useEffect(() => {
+
+  // }, [value])
+
+  useEffect(() => {
+    const newOptions = data?.planets.nodes.map(({ id, name }) => ({
+      value: id,
+      label: name,
+    }))
+    if (newOptions) setOptions(newOptions)
+  }, [data])
 
   return (
     <SelectContainerStyles>
@@ -58,18 +99,14 @@ export default function FilterByPlanet({ setPlanet }) {
             primary50: 'var(--dark-gray)',
           },
         })}
-        isSearchable={false}
-        options={[
-          defaultValue,
-          ...(data?.planets.nodes.map((planet) => ({
-            label: `Planet: ${planet.name}`,
-            value: planet.id,
-          })) || []),
-        ]}
-        defaultValue={defaultValue}
-        onChange={(e) => {
-          setPlanet(data?.planets.nodes.find(({ id }) => id === e.value))
-        }}
+        placeholder={'Planet: All'}
+        onInputChange={onInputChange}
+        onMenuScrollToBottom={onMenuScrollToBottom}
+        options={options}
+        inputValue={inputValue}
+        onChange={onChange}
+        value={value}
+        isClearable={true}
       />
     </SelectContainerStyles>
   )

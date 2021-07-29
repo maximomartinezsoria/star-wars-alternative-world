@@ -60,7 +60,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    planets(page: Int, pageSize: Int): PlanetsResponse!
+    planets(page: Int, pageSize: Int, planetName: String): PlanetsResponse!
     characters(
       page: Int
       pageSize: Int
