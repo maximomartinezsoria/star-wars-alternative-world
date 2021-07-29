@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Emitter from '../../lib/eventEmitter'
 
-export default function CharacterFormModal(selectedPlanetId) {
+export default function CharacterFormModal({ selectedPlanetId }) {
   const history = useHistory()
   const [errorMessage, setErrorMessage] = useState(null)
   const [createCharacter, { loading, error: mutationError }] = useMutation(
@@ -22,7 +22,7 @@ export default function CharacterFormModal(selectedPlanetId) {
       refetchQueries: [
         {
           query: GET_ALL_CHARACTERS,
-          variables: { pageSize: 12, planet: selectedPlanetId },
+          variables: { pageSize: 12, planet: selectedPlanetId || undefined },
         },
         {
           query: GET_ALL_PLANETS,

@@ -28,7 +28,7 @@ export default function Characters() {
       <Route
         path="/characters/create"
         render={(props) => (
-          <CharacterFormModal {...props} selectedPlanet={selectedPlanet?.id} />
+          <CharacterFormModal selectedPlanet={selectedPlanet?.id} {...props} />
         )}
       />
 
